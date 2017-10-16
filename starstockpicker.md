@@ -6,4 +6,6 @@ nav_include: 4
 noline: 1
 ---
 
-## This is where I will display my star stock picker project
+## Topic
+
+This is where I will display my star stock picker project
