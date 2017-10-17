@@ -178,7 +178,7 @@ def TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,periodicity):
 ``` 
 
 This is how a raw cross section would look like:
-|Index|Beta_Raw|EPS_LTM|EPS|DPS|TotalReturnIndex_Chg_1M|TotalReturnIndex_Chg_3M|TotalReturnIndex_Chg_6M|TotalReturnIndex_Chg_1Y|PB_LTM|PE_LTM|EV/EBITDA|EV/EBIT|EV/Sales|P/Sales|ROE|
+| Index | Beta_Raw | EPS_LTM | EPS | DPS | TotalReturnIndex_Chg_1M | TotalReturnIndex_Chg_3M | TotalReturnIndex_Chg_6M | TotalReturnIndex_Chg_1Y | PB_LTM | PE_LTM | EV/EBITDA | EV/EBIT | EV/Sales | P/Sales | ROE |
 |--------- | ------ | ----------- | --------- | ------ | ----------- | --------- | ------ | ----------- | --------- | ------ | ----------- |--------- | ------ | ----------- | 
 |0|1.3639|3.39|3.35|1.73|0.00879863|0.013264331|0.216134088|0.21701794|1.034873396|16.8879056|19.52420504|26.11366935|5.633693988|0.000760949|0.063172043|
 |1|0.7843|0.732264163|0.721631299|0.23346895|-0.027606711|0.05909564|0.371368673|0.369727789|1.177625671|11.01515055|8.633889691|12.94489533|0.80991864|0.00026371|0.105576436|
