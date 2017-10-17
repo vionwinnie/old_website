@@ -5,8 +5,6 @@ layout: lecture
 nav_include: 4
 noline: 1
 ---
-{% assign links = site.data.wikilinks %}
-
 ## Contents
 {:.no_toc}
 *  
