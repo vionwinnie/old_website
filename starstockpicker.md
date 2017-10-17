@@ -12,7 +12,7 @@ noline: 1
 
 # Introduction
 
-Traditional quant models combine types of signals using a fixed percentage for each component in order to classify stocks. I am curious to see if deploying machine learning techniques can help improve betting averages of the stocks. My hypothesis is that these machine learning techniques can detect closer relationship of different metrics, assign better weights for different metrics, and thus draw a better separation plane between stocks likelky to go up or down. 
+Traditional quant models combine signals classify stocks by a top down approach: it assigns a fixed percentage for each signal and combine them altogether for a composite score. I am curious to see if deploying machine learning techniques can help improve betting averages of the stockpicking. My hypothesis is that these machine learning techniques can detect closer relationship of different metrics, assign better weights for different metrics, and thus draw a better separation plane between rising and declining stocks. 
 
 **Topic:** Comparing Performance Between Random Forest Classifier Model (RF) and Support Vector Machine (SVM)
 
@@ -27,7 +27,7 @@ Traditional quant models combine types of signals using a fixed percentage for e
 
 I have extracted HSI constituents and the dates of changes in index composition. I saved each security as an individual csv. There are about 60 securities.
 
-For each security, I have extracted 25 base features, including price, cash from operations, earnings, forward P/E, daily volume, short interest, dividend and so on. I then derived 194 factors I have engineered from the base features, grouped into different categories. These categories capture different parts of the stock, from fundamental, momentum, market expectation. Some of them are averages, differences, and Z score of one metrics. Click [Here] to see the feature table.
+For each security, I have extracted 25 base features, including price, cash from operations, earnings, forward P/E, daily volume, short interest, dividend and so on. I then derived 194 factors I have engineered from the base features, grouped into different categories. These categories capture different parts of the stock, from fundamental, momentum, market expectation. Some of them are averages, differences, and Z score of one metrics. Click [Here]{: Feature Table} to see the feature table.
 
 
 # Feature Table 
