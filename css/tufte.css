@@ -67,7 +67,7 @@ background-color:#FFF0F0;
 color:#408090;
 }
 .highlight .gd {
-color:#A00000;
+color:#6e1a9b;
 }
 .highlight .ge {
 font-style:italic;
@@ -282,11 +282,11 @@ html {
   font-size: 1.3rem; }
 
 a {
-  color: #a00000;
+  color: #6e1a9b;
   text-decoration: none; }
 
 p > a {
-  color: #a00000;
+  color: #6e1a9b;
   text-decoration: none; }
 
 body {
@@ -303,7 +303,7 @@ body {
 
 h1 {
   font-weight: 400;
-  color: #a00000;
+  color: #6e1a9b;
   margin-top: 1.568rem;
   margin-bottom: 1.868rem;
   font-size: 2.5rem;
@@ -313,7 +313,7 @@ h2 {
   width: 90%;
   font-style: italic;
   font-weight: 400;
-  color: #a00000;
+  color: #6e1a9b;
   margin-top: 1.866666666666667rem;
   padding-top: 2.0rem;
   margin-bottom: 2.0rem;
@@ -324,7 +324,7 @@ h2 {
 
 h3 {
   font-style: italic;
-  color: #a00000;
+  color: #6e1a9b;
   font-weight: 400;
   font-size: 1.5rem;
   margin-top: 2.1777777777777778rem;
@@ -527,7 +527,7 @@ blockquote .sidenote, blockquote .marginnote {
 .sidenote-number:after, .sidenote:before {
   content: counter(sidenote-counter) " ";
   font-family: et-bembo-roman-old-style;
-  color: #a00000;
+  color: #6e1a9b;
   position: relative;
   vertical-align: baseline; }
 
@@ -538,8 +538,8 @@ blockquote .sidenote, blockquote .marginnote {
   left: 0.1rem; }
 
 .sidenote:before {
-  content: counter(sidenote-counter) ". ";
-  color: #a00000;
+  content: counter(sidenote-counter) ". ";
+  color: #6e1a9b;
   top: 0rem; }
 
 p, footer, div.table-wrapper, div.mathblock {
@@ -601,7 +601,7 @@ label.margin-toggle:not(.sidenote-number) {
 @media (max-width: 760px) {
   label.margin-toggle:not(.sidenote-number) {
     display: inline;
-    color: #a00000; }
+    color: #6e1a9b; }
 
   .sidenote, .marginnote {
     display: none; }
@@ -647,7 +647,7 @@ label.margin-toggle:not(.sidenote-number) {
 /*--- End of Basic Layout stuff from tufte.css ---*/
 /* -- Jekyll specific styling --*/
 .contrast {
-  color: #a00000; }
+  color: #6e1a9b; }
 
 .smaller {
   font-size: 80%; }
@@ -658,9 +658,8 @@ header > nav.group, body footer {
 
 /*nav.group a.active:before {
   content: "\0003c\000a0"; }
-
 nav.group a.active:after {
-  content: " >"; }*/
+  content: " >"; }*/
 
 nav.group a.active {
     text-decoration: underline;
@@ -674,7 +673,7 @@ header > nav a {
   font-family: "Gill Sans", "Gill Sans MT", "Lato", Calibri, sans-serif;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  /*color: #a00000;*/
+  /*color: #6e1a9b;*/
   padding-top: 1.5rem;
   text-decoration: none;
   display: inline-block;
@@ -705,7 +704,7 @@ ul.footer-links li {
 .credits {
   font-family: "Gill Sans", "Gill Sans MT", "Lato", Calibri, sans-serif; }
   .credits a {
-    color: #a00000; }
+    color: #6e1a9b; }
 
 body.full-width, .content-listing, ul.content-listing li.listing {
   width: 90%;
@@ -826,7 +825,7 @@ hr.slender {
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  color: #a00000;
+  color: #6e1a9b;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
