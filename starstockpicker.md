@@ -32,7 +32,7 @@ For each security, I have extracted 25 base features, including price, cash from
 
 ## Data Preprocessing 
 
-Before standardizing the data, I will have to load it into my iPython interpreter through the following command: 
+1. Before standardizing the data, I first load it into my iPython interpreter through the following function *DataProcessing()*. The function will return two data items: 1) a dictionary of stock-level data with classifier label ( 1,0 based on forward 1-month excess return).  2) a dictionary of constituents at each time period
 
 ```python
 import pandas as pd
@@ -108,8 +108,81 @@ Index_Add_Drop_path = os.path.join(os.path.dirname(__file__), '..', 'Input/Stock
     
 timeframe_dict, stock_dictionary= DataProcessing(IndexData_path,FeatureSelection_path,StockLevelSearch_path,Index_Add_Drop_path)
 ```
+2. With timeframe_dict and stock_dictionary at hand, we can now proceed to reshape the data to form cross-section for each time period and then split the data into training and testing set. I'm using an expanding window approach, therefore this is my home-made test_train_split, different from the sklearn standardized function. 
+
+```python
+def TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,periodicity):
+    
+    " timeframe_dict: The list of time periods in the stocks"
+    " stock_dictionary: The dictionary in which I loaded the stock level data"
+    " periodicity: The number of periods I want to include in each training period" 
+    
+    
+    # Sorting the list of time periods 
+    times = timeframe_dict.keys()
+    times.sort()
+    
+    ## forming a cross section 
+    month_set = {}     
+    
+    for period in times:
+        securities = timeframe_dict[period]
+        
+        for i,security in enumerate(securities):
+            test_df = stock_dictionary[security]
+            line = test_df[test_df['date']==period]
+            
+            if i ==0:
+                month = line
+            else:
+                month = pd.concat([month,line])
+        
+        month = month.drop(['date'],1) ## Remove Date Column
+        npp = change_value(np.array(month).transpose()) ## Convert to Numpy Array for easing the operation
+        
+        month_set[period]=npp
+    
+    ## Splitting Features and Labels in training and testing sets
+    train_set_num = xrange(periodicity,len(timeframe_dict))
+    train_set = []   
+    train_label_set = []
+    
+    test_set = []
+    test_label_set = []
+    test_stock_set = []
+    
+    CV_set = []
+    CV_label_set = []
+
+    for i in train_set_num:
+        
+        if i < len(timeframe_dict)-1 :
+            
+            allArrays = np.concatenate([month_set[times[x]] for x in range(i)],axis=1)
+        
+            labels = allArrays[-2]  ## Separate the labels column
+            allArrays = allArrays[:-2] ## Drop the labels column
+            
+            train_set.append(allArrays)
+            train_label_set.append(labels)
+            
+            testArrays = month_set[times[i+1]]
+            testlabels = testArrays[-2]
+            testtags = testArrays[-1]
+            testArrays = testArrays[:-2]
+        
+            test_set.append(testArrays)
+            test_label_set.append(testlabels)
+            test_stock_set.append(testtags)
+    
+    return train_set, train_label_set, CV_set, CV_label_set,  test_set, test_label_set,test_stock_set
+ 
+ TrainFeatureSet, TrainLabelSet, CVFeatureSet, CVLabelSet, TestFeatureSet, TestLabelSet, TestStockTagsSet = TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,para.period)
+``` 
+
 
 # Result 
+
 
 ## Feature Table 
 
