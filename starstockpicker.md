@@ -16,13 +16,14 @@ Traditional quant models combine types of signals using a fixed percentage for e
 
 **Timeframe:** 2000-2017 Monthly Data 
 
-** Machine Learning Techniques:** Random Forest Classifier, Support Vector Machine
+**Machine Learning Techniques:** Random Forest Classifier, Support Vector Machine
 
-## Data Collection And Feature Selection
+
+### Data Collection
 
 I have extracted HSI constituents and the dates of changes in index composition. I saved each security as an individual csv. There are about 60 securities.
 
-## Feature Selection and Preprocessing:
+### Feature Selection 
 
 I have extracted 25 base features, including price, cash from operations, earnings, forward P/E, daily volume, short interest, dividend and so on. Here's the summary of the 194 derived factors I have engineered from the base features, grouped into different categories. These categories capture different parts of the stock, from fundamental, momentum, to 
 
