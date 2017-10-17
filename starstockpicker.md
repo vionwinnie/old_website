@@ -13,7 +13,9 @@ Traditional quant models combine types of signals using a fixed percentage for e
 ## Topic: Comparing Performance Between Random Forest Classifier Model (RF) and Support Vector Machine (SVM)
 
 **Benchmark:** Hang Seng Index (HSI) 
+
 **Timeframe:** 2000-2017 Monthly Data 
+
 ** Machine Learning Techniques:** Random Forest Classifier, Support Vector Machine
 
 ## Data Collection And Feature Selection
