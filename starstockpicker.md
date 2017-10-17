@@ -22,15 +22,36 @@ Traditional quant models combine signals classify stocks by a top down approach:
 
 **Machine Learning Techniques:** Random Forest Classifier, Support Vector Machine
 
+# Project Flow 
 
-# Data Collection & Feature Selection
+## Data Collection & Feature Selection
 
 I have extracted HSI constituents and the dates of changes in index composition. I saved each security as an individual csv. There are about 60 securities.
 
 For each security, I have extracted 25 base features, including price, cash from operations, earnings, forward P/E, daily volume, short interest, dividend and so on. I then derived 194 factors I have engineered from the base features, grouped into different categories. These categories capture different parts of the stock, from fundamental, momentum, market expectation. Some of them are averages, differences, and Z score of one metrics. Click [Here]{: Feature Table} to see the feature table.
 
+## Data Preprocessing 
 
-# Feature Table 
+```python
+%matplotlib inline
+import numpy as np
+import scipy as sp
+import matplotlib as mpl
+import matplotlib.cm as cm
+import matplotlib.pyplot as plt
+import pandas as pd
+pd.set_option('display.width', 500)
+pd.set_option('display.max_columns', 100)
+pd.set_option('display.notebook_repr_html', True)
+import seaborn as sns
+sns.set_style("whitegrid")
+sns.set_context("poster")
+import pymc3 as pm
+```
+
+# Result 
+
+## Feature Table 
 
 | Category | Factor | Description |  
 |--------- | ------ | ----------- | 
