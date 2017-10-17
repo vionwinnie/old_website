@@ -1,16 +1,22 @@
 ---
 title: Quantitative Stock Picking in Hang Seng Index
 shorttitle: Star Stock Picker
-layout: default
+layout: lecture
 nav_include: 4
 noline: 1
 ---
+{% assign links = site.data.wikilinks %}
 
-## Introduction
+## Contents
+{:.no_toc}
+*  
+{: toc}
+
+# Introduction
 
 Traditional quant models combine types of signals using a fixed percentage for each component in order to classify stocks. I am curious to see if deploying machine learning techniques can help improve betting averages of the stocks. My hypothesis is that these machine learning techniques can detect closer relationship of different metrics, assign better weights for different metrics, and thus draw a better separation plane between stocks likelky to go up or down. 
 
-## Topic: Comparing Performance Between Random Forest Classifier Model (RF) and Support Vector Machine (SVM)
+# Topic: Comparing Performance Between Random Forest Classifier Model (RF) and Support Vector Machine (SVM)
 
 **Benchmark:** Hang Seng Index (HSI) 
 
@@ -19,11 +25,11 @@ Traditional quant models combine types of signals using a fixed percentage for e
 **Machine Learning Techniques:** Random Forest Classifier, Support Vector Machine
 
 
-### Data Collection
+# Data Collection
 
 I have extracted HSI constituents and the dates of changes in index composition. I saved each security as an individual csv. There are about 60 securities.
 
-### Feature Selection 
+# Feature Selection 
 
 I have extracted 25 base features, including price, cash from operations, earnings, forward P/E, daily volume, short interest, dividend and so on. I then derived 194 factors I have engineered from the base features, grouped into different categories. These categories capture different parts of the stock, from fundamental, momentum, market expectation. Some of them are averages, differences, and Z score of one metrics. Click [Here] to see the feature table.
 
