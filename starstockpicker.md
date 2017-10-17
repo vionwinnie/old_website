@@ -25,8 +25,10 @@ I have extracted HSI constituents and the dates of changes in index composition.
 
 ### Feature Selection 
 
-I have extracted 25 base features, including price, cash from operations, earnings, forward P/E, daily volume, short interest, dividend and so on. Here's the summary of the 194 derived factors I have engineered from the base features, grouped into different categories. These categories capture different parts of the stock, from fundamental, momentum, to 
+I have extracted 25 base features, including price, cash from operations, earnings, forward P/E, daily volume, short interest, dividend and so on. I then derived 194 factors I have engineered from the base features, grouped into different categories. These categories capture different parts of the stock, from fundamental, momentum, market expectation. Some of them are averages, differences, and Z score of one metrics. Click [Here] to see the feature table.
 
+
+### Feature Table 
 
 | Category | Factor | Description |  
 |--------- | ------ | ----------- | 
