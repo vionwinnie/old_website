@@ -177,6 +177,8 @@ def TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,periodicity):
  TrainFeatureSet, TrainLabelSet, TestFeatureSet, TestLabelSet, TestStockTagsSet = TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,para.period)
 ``` 
 This is how a raw cross section would look like:
+
+
 | Index | Beta_Raw | EPS_LTM | EPS | DPS | TotalReturnIndex_Chg_1M | TotalReturnIndex_Chg_3M | TotalReturnIndex_Chg_6M | TotalReturnIndex_Chg_1Y | PB_LTM | PE_LTM | EV/EBITDA | EV/EBIT | EV/Sales | P/Sales | ROE |
 |--------- | ------ | ----------- | --------- | ------ | ----------- | --------- | ------ | ----------- | --------- | ------ | ----------- |--------- | ------ | ----------- | 
 |--------- | ------ | ----------- | --------- | ------ | ----------- | --------- | ------ | ----------- | --------- | ------ | ----------- |--------- | ------ | ----------- | 
