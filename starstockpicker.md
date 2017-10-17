@@ -1,7 +1,7 @@
 ---
 title: Quantitative Stock Picking in Hang Seng Index
 shorttitle: Star Stock Picker
-layout: lecture
+layout: project
 nav_include: 4
 noline: 1
 ---
