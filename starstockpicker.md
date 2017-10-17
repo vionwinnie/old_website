@@ -32,21 +32,81 @@ For each security, I have extracted 25 base features, including price, cash from
 
 ## Data Preprocessing 
 
+Before standardizing the data, I will have to load it into my iPython interpreter through the following command: 
+
 ```python
-%matplotlib inline
-import numpy as np
-import scipy as sp
-import matplotlib as mpl
-import matplotlib.cm as cm
-import matplotlib.pyplot as plt
 import pandas as pd
-pd.set_option('display.width', 500)
-pd.set_option('display.max_columns', 100)
-pd.set_option('display.notebook_repr_html', True)
-import seaborn as sns
-sns.set_style("whitegrid")
-sns.set_context("poster")
-import pymc3 as pm
+import numpy as np
+import glob, time, os
+
+## Loading Dateparse for reading dataframes
+dateparse = lambda x: pd.datetime.strptime(x, '%Y-%m-%d')
+
+
+def DataProcessing(hsi_path, feature_path, stock_path, index_path):
+    ### Reading Index Data
+    dateparse = lambda x: pd.datetime.strptime(x, '%Y-%m-%d')
+    HSI = pd.read_csv(hsi_path,header=2,parse_dates=['date'],date_parser=dateparse)
+    new_name = ['date']
+    for s in HSI.columns.tolist():
+        if s != 'date':
+            new_name.append('HSI_'+s) 
+        
+    HSI.columns = new_name
+    
+    ## Loading the column name lists to select the desired features
+    column_selection= pd.read_excel(feature_path,sheetname=0,header=0,index_col=False)['Column'].tolist()
+    column_selection = [s.encode("utf-8") for s in column_selection]   ### Encode as string 
+    
+    ## Reading Stock Level Data
+    paths = glob.glob(stock_path)
+    stock = {}
+    for path in paths:
+        stock_name = path.split("\\")[-1].split(".")[0]
+        intermediary = pd.read_csv(path,header=2,parse_dates=['date'],date_parser=dateparse,usecols=column_selection)
+        
+        ## Merge HSI with stock level 
+        intermediary = pd.merge(intermediary,HSI,how='left',on='date')
+        
+        ## Adding the classifier tab
+        intermediary['classifier'] = intermediary['TotalReturnIndex_Chg_1M']> intermediary['HSI_Chg_1M']
+        intermediary['classifier'] = intermediary['classifier'].shift(-1)
+        intermediary['Forward_Chg_1M'] = intermediary['TotalReturnIndex_Chg_1M'].shift(-1)
+        intermediary['stock_tag'] = stock_name.replace('-HK','')  ##Added Stock Tags 
+        stock[stock_name] = intermediary    
+    
+    ## Loading Index Constituents Addition And Deletion File 
+    dateparse2 = lambda x: pd.datetime.strptime(x, '%Y%m%d')
+    HSI_changes= pd.read_excel(index_path,sheetname=0,header=0,index_col=False)
+    
+    ## Create Dictionary of Constituents According to Each Period In Time  
+    ticker_date_dict = {}
+    index = []
+    
+    for i in range(0,len(HSI_changes)):  
+        ticker = HSI_changes.iloc[i,:]
+        name = ticker['Ticker']
+        dates = pd.Series(pd.date_range(start=dateparse2(str(ticker['Start_Date'])), end=dateparse2(str(ticker['End_Date'])), freq='M')).tolist()  
+        for date in dates:
+            index.append(date)
+        ticker_date_dict[name]=dates
+    
+    unique_dates= list(set(index))
+    inverted = {}
+    for cool in unique_dates:
+        inverted.setdefault(cool, [])  ## Default an empty index
+    for k,v in ticker_date_dict.items():
+        for m in v:
+            inverted[m].append(k)
+
+    return inverted, stock
+
+IndexData_path = os.path.join(os.path.dirname(__file__), '..', 'Output/ExchangeFactor/HSI.csv') 
+FeatureSelection_path =  os.path.join(os.path.dirname(__file__), '..', 'Input/StockLevel/FeatureSelection.xlsx')
+StockLevelSearch_path =  os.path.join(os.path.dirname(__file__), '..', 'Output/StockLevel/*.csv')
+Index_Add_Drop_path = os.path.join(os.path.dirname(__file__), '..', 'Input/StockLevel/Constituent_Addition_Removal.xlsx')
+    
+timeframe_dict, stock_dictionary= DataProcessing(IndexData_path,FeatureSelection_path,StockLevelSearch_path,Index_Add_Drop_path)
 ```
 
 # Result 
