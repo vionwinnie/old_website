@@ -151,9 +151,6 @@ def TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,periodicity):
     test_label_set = []
     test_stock_set = []
     
-    CV_set = []
-    CV_label_set = []
-
     for i in train_set_num:
         
         if i < len(timeframe_dict)-1 :
@@ -175,9 +172,9 @@ def TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,periodicity):
             test_label_set.append(testlabels)
             test_stock_set.append(testtags)
     
-    return train_set, train_label_set, CV_set, CV_label_set,  test_set, test_label_set,test_stock_set
+    return train_set, train_label_set, test_set, test_label_set,test_stock_set
  
- TrainFeatureSet, TrainLabelSet, CVFeatureSet, CVLabelSet, TestFeatureSet, TestLabelSet, TestStockTagsSet = TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,para.period)
+ TrainFeatureSet, TrainLabelSet, TestFeatureSet, TestLabelSet, TestStockTagsSet = TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,para.period)
 ``` 
 
 
