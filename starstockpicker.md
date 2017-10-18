@@ -190,6 +190,50 @@ This is how a raw cross section would look like:
 |4|0.9269|nan|0.67|0.53|0.029415152|0.187269201|0.360964765|0.523349619|nan|nan|nan|nan|nan|0.002778431|0.120525452|
 |5|1.485|3.831|3.83|1.6|0.0081556|0.014077946|0.324343506|0.258543165|0.485366245|9.284521013|221.9177996|260.3835515|63.89780405|0.014547648|0.05190279|
 
+## Standardization And Random Forest Classifier:
+For each training set, I first replace the NaN value with the column mean and then feed the training set to 
+I then use the sklearn toolkit to run my random forest classifier. To avoid overfitting, I set the maximum depth of the trees to be 10. 
+
+```  Python 
+def random_forest_classifier(features, target,MaxDepth=None):
+    """
+    Reference: http://dataaspirant.com/2017/06/26/random-forest-classifier-python-scikit-learn/
+    To train the random forest classifier with features and target data
+    :param features:
+    :param target:
+    :return: trained random forest classifier
+    """
+    clf = RandomForestClassifier(max_depth = MaxDepth)
+    clf.fit(features, target)
+    return clf
+
+    ## We use the training set to ubi 
+    accuracy_score_list = []
+    for i in range(0,len(TestFeatureSet)-1):
+            
+    ## Starting the Training across different dataset 
+    accuracy_score_list = []
+    for i in range(0,len(TestFeatureSet)-1):
+        
+        a = TrainFeatureSet[i]
+        b = np.where(np.invert(np.isfinite(a)), np.ma.array(a, mask=np.invert(np.isfinite(a))).mean(axis=1)[:, np.newaxis], a)  
+        ## np. newaxis is used to increase the dimension of the existing array by one more dimension
+        
+        ## Standardize the features to [-1,1]
+        Scale = preprocessing.Normalizer()
+        b = Scale.fit_transform(b)        
+        trained_model = random_forest_classifier(b.transpose(), TrainLabelSet[i],10)
+    
+        ## Normalize the Test Set and Make Predict using the trained model
+        c = TestFeatureSet[i]
+        d = np.where(np.invert(np.isfinite(c)), np.ma.array(c, mask=np.invert(np.isfinite(c))).mean(axis=1)[:, np.newaxis], c)
+        d = Scale.transform(d)
+        predicted_x = trained_model.predict(d.transpose())
+        accuracy_score_list.append(accuracy_score(TestLabelSet[i],predicted_x))
+    
+    accuracy_plot(timeframe_dict,accuracy_score_list,para.period)
+``` 
+
 # Result 
 
 
