@@ -236,7 +236,9 @@ def random_forest_classifier(features, target,MaxDepth=None):
 
 ## Here are the reuslts for Random Forest Model:
 **Avg. accuracy score is :** 0.51
+
 **SD of accuracy score is :** 0.08
+
 **Runtime:** 63.5 secs
 
 ## Feature Table 
