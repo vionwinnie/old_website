@@ -192,7 +192,7 @@ This is how a raw cross section would look like:
 For each training set, I first replace the NaN value with the column mean and then feed the training set to 
 I then use the sklearn toolkit to run my random forest classifier. To avoid overfitting, I set the maximum depth of the trees to be 10. 
 
-```  Python 
+```python
 def random_forest_classifier(features, target,MaxDepth=None):
     """
     Reference: http://dataaspirant.com/2017/06/26/random-forest-classifier-python-scikit-learn/
@@ -230,10 +230,14 @@ def random_forest_classifier(features, target,MaxDepth=None):
         accuracy_score_list.append(accuracy_score(TestLabelSet[i],predicted_x))
     
     accuracy_plot(timeframe_dict,accuracy_score_list,para.period)
-``` 
+```
 
-# Result 
+# Random Forest Model Evaluation  
 
+## Here are the reuslts for Random Forest Model:
+**Avg. accuracy score is :** 0.51
+**SD of accuracy score is :** 0.08
+**Runtime:** 63.5 secs
 
 ## Feature Table 
 
