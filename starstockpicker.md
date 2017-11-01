@@ -197,7 +197,7 @@ I then use the sklearn toolkit to run my random forest classifier. To avoid over
 
 Because this is a time series data where the latest week's prediction is influenced by the most recent week's data points, I have decided to train and test my model in the following fashion:
 
-![Alt Text](/assets/TrainingMethodology.png)
+![Alt Text](/assets/TrainingMethodology.PNG)
 
 ```python
 def random_forest_classifier(features, target,MaxDepth=None):
