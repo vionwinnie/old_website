@@ -242,6 +242,8 @@ def random_forest_classifier(features, target,MaxDepth=None):
 **Runtime:** 63.5 secs
 
 ![Alt Text](/assets/AUCScoreChart.png)
+![Alt Text](/assets/AccuracyScoreChart.png)
+
 
 ## Feature Table 
 
