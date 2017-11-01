@@ -32,7 +32,10 @@ For each security, I have extracted 25 base features, including price, cash from
 
 ## Data Preprocessing 
 
-1. Before standardizing the data, I first load it into my iPython interpreter through the following function *DataProcessing()*. The function will return two data items: 1) a dictionary of stock-level data with classifier label ( 1,0 based on forward 1-month excess return).  2) a dictionary of constituents at each time period
+1. Before standardizing the data, I first load it into my iPython interpreter through the following function *DataProcessing()*. The function will return two data items: 
+
+1) a dictionary of stock-level data with classifier label ( 1,0 based on forward 1-month excess return)  
+2) a dictionary of constituents at each time period
 
 ```python
 import pandas as pd
@@ -191,6 +194,10 @@ This is how a raw cross section would look like:
 ## Standardization And Random Forest Classifier:
 For each training set, I first replace the NaN value with the column mean and then feed the training set to 
 I then use the sklearn toolkit to run my random forest classifier. To avoid overfitting, I set the maximum depth of the trees to be 10. 
+
+Because this is a time series data where the latest week's prediction is influenced by the most recent week's data points, I have decided to train and test my model in the following fashion:
+
+![Alt Text](/assets/TrainingMethodology.png)
 
 ```python
 def random_forest_classifier(features, target,MaxDepth=None):
