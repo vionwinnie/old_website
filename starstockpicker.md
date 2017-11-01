@@ -241,6 +241,8 @@ def random_forest_classifier(features, target,MaxDepth=None):
 
 **Runtime:** 63.5 secs
 
+![Alt Text](/assets/AUCScoreChart.png)
+
 ## Feature Table 
 
 | Category | Factor | Description |  
