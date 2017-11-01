@@ -195,10 +195,11 @@ This is how a raw cross section would look like:
 For each training set, I first replace the NaN value with the column mean and then feed the training set to 
 I then use the sklearn toolkit to run my random forest classifier. To avoid overfitting, I set the maximum depth of the trees to be 10. 
 
-Because this is a time series data where the latest week's prediction is influenced by the most recent week's data points, I have decided to train and test my model in the following fashion:
+Because this is a time series data where the latest week's prediction is influenced by the most recent week's data points, I have decided to train and test my model with an expanding window approach. For predicting Sep 2017 stock picking for example, I will first train my model with Jan 2004-Aug 2017 data and then use the model parameters for September prediction. 
 
 ![Alt Text](/assets/TrainingMethodology.PNG)
 
+Here's the code to run the model for each period and visualize the results in charts:
 ```python
 def random_forest_classifier(features, target,MaxDepth=None):
     """
