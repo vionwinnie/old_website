@@ -246,8 +246,8 @@ def random_forest_classifier(features, target,MaxDepth=None):
 
 Even though the accuracy score seems low compared to other classification problems, but in the context of stock picking, a betting average of 55% percent already makes you a rock star. Therefore, it is encouraging to see my accuracy score on average has 56% and with some approaching 60%. Because of the asymmetric nature of investment, picking the strongest stocks within the index and hold them would pay off handsomely even though we might miss the smaller one. Such asymmetric payoff is even more apparent when we look at the portfolio strategy of the model.
 
-![Alt Text](/assets/RF_cumreturn.png)
-![Alt Text](/assets/RF_constituents.png)
+![Alt Text](/assets/RF_CumReturn.png)
+![Alt Text](/assets/RF_Constituents.png)
 
 We can see that for quite some period of time, the portfolio might hold only 9 out of the 33 stocks, which give more upside and avoid the detractors. With that limited downside, my portfolio is able to beat the beachmark by 300%.
 
