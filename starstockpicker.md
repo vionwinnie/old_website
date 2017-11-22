@@ -259,7 +259,7 @@ Here are the results:
 
 |Category | Factor | Information Coefficient|
 |----- | ------ | -------------|
-| Overall Model | | 0.03
+| Overall Model | | 0.01|
 | Earnings Momentum | PE NTM | 0.01|
 | Earnings Momentum | Pct Change in 9 months | 0.03|
 | Valuation | EV/ EBITDA | 0.03|
