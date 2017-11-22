@@ -275,7 +275,7 @@ Because of the asymmetric nature of investment, picking the strongest stocks wit
 
 From a cumulative return perspective, RF delivers annualized excess return of 7% per year while Quant model returns 5%. From 2005 to 2017, RF outperforms benchmark by 200% while QR outperforms by 130%.
 
-![Alt Text](/assets/RF_CumReturn.png)
+![Alt Text](/assets/Cum_Return_Quant_v3.png)
 
 Here's the year breakdown of RF and QR performance: 
 
@@ -300,7 +300,7 @@ Here's the year breakdown of RF and QR performance:
 
 RF outperforms QR for 9 out of 14 years. In recent years and both strategies outperformed benchmark 13 out of 14 years, showing the consistency of the strategy. 
 
-![Alt Text](/assets/RF_Constituents.png)
+![Alt Text](/assets/RF_Constituents3.png)
 
 
 # Conclusion
