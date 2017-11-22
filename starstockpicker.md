@@ -264,7 +264,7 @@ Here's the year breakdown of RF and QR performance:
 
 
 |Year | RF	|Quant	|Difference| Bench |
-|--- | --- | ---- | ---- |
+|--- |--- | --- | ---- | ---- |
 |2005	|0.10	|0.06	|0.04| 0.11|
 |2006	|0.06	|0.02	|0.04|0.28|
 |2007	|0.11	|-0.04	|0.15|0.17|
