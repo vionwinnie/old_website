@@ -14,13 +14,11 @@ noline: 1
 
 Traditional quant models combine signals classify stocks by a top down approach: it assigns a fixed percentage for each signal and combine them altogether for a composite score. I am curious to see if deploying machine learning techniques can help improve betting averages of the stockpicking. My hypothesis is that these machine learning techniques can detect closer relationship of different metrics, assign better weights for different metrics, and thus draw a better separation plane between rising and declining stocks. 
 
-**Topic:** Comparing Performance Between Random Forest Classifier Model (RF) and Support Vector Machine (SVM)
+**Topic:** Comparing Performance of Random Forest Classifier Model (RF) with traditionial quant factor model (TR)
 
 **Benchmark:** Hang Seng Index (HSI) 
 
 **Timeframe:** 2000-2017 Monthly Data 
-
-**Machine Learning Techniques:** Random Forest Classifier, Support Vector Machine
 
 # Project Flow 
 
@@ -252,12 +250,39 @@ def random_forest_classifier(features, target,MaxDepth=None):
 ![Alt Text](/assets/AUCScoreChart.png)
 ![Alt Text](/assets/AccuracyScoreChart.png)
 
-Even though the accuracy score seems low compared to other classification problems, but in the context of stock picking, a betting average of 55% percent already makes you a rock star. Therefore, it is encouraging to see my accuracy score on average has 56% and with some approaching 60%. Because of the asymmetric nature of investment, picking the strongest stocks within the index and hold them would pay off handsomely even though we might miss the smaller one. Such asymmetric payoff is even more apparent when we look at the portfolio strategy of the model.
+
+Even though the accuracy score seems low compared to other classification problems, but in the context of stock picking, a betting average of 55% percent already makes you a rock star. Therefore, it is encouraging to see my accuracy score on average has 56% and with some approaching 60%. 
+
+# Portfolio Performance
+Because of the asymmetric nature of investment, picking the strongest stocks within the index and hold them would pay off handsomely even though we might miss the smaller one. Such asymmetric payoff is even more apparent when we look at the portfolio strategy of the model.
+
+From a cumulative return perspective, RF delivers annualized excess return of 7% per year while Quant model returns 5%. From 2005 to 2017, RF outperforms benchmark by 200% while QR outperforms by 130%.
 
 ![Alt Text](/assets/RF_CumReturn.png)
+
+Here's the year breakdown of RF and QR performance: 
+|RF	|Quant	|Difference| Bench |
+|2005	|0.10	|0.06	|0.04| 0.11|
+|2006	|0.06	|0.02	|0.04|0.28|
+|2007	|0.11	|-0.04	|0.15|0.17|
+|2008	|0.00	|0.06	|-0.06|-0.43|
+|2009	|0.17	|0.17	|0.00|0.52|
+|2010	|0.04	|0.01	|0.03|0.17|
+|2011	|0.05	|0.05	|0.00|-0.13|
+|2012	|0.15	|0.05	|0.11|0.16|
+|2013	|0.01	|0.01	|0.01|-0.07|
+|2014	|0.10	|0.01	|0.09|0.11|
+|2015	|-0.03	|0.01	|-0.03|--0.20|
+|2016	|0.05	|0.11	|-0.06|0.19|
+|2017 (YTD)	|0.04	|0.09	|-0.05|0.20|
+|Avg	|0.07	|0.05	|NA|0.08|
+
+RF outperforms QR for 9 out of 14 years. Recently year, 
 ![Alt Text](/assets/RF_Constituents.png)
 
-We can see that for quite some period of time, the portfolio might hold only 9 out of the 33 stocks, which give more upside and avoid the detractors. With that limited downside, my portfolio is able to beat the beachmark by 300%.
+# Traditional Quant Model 
+
+I would like to compare the performance of my random forest model with a typical quant model 
 
 ## Feature Table 
 
