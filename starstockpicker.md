@@ -261,6 +261,8 @@ From a cumulative return perspective, RF delivers annualized excess return of 7%
 ![Alt Text](/assets/RF_CumReturn.png)
 
 Here's the year breakdown of RF and QR performance: 
+
+
 |RF	|Quant	|Difference| Bench |
 |2005	|0.10	|0.06	|0.04| 0.11|
 |2006	|0.06	|0.02	|0.04|0.28|
