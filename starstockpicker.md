@@ -250,8 +250,25 @@ def random_forest_classifier(features, target,MaxDepth=None):
 ![Alt Text](/assets/AUCScoreChart.png)
 ![Alt Text](/assets/AccuracyScoreChart.png)
 
-
 Even though the accuracy score seems low compared to other classification problems, but in the context of stock picking, a betting average of 55% percent already makes you a rock star. Therefore, it is encouraging to see my accuracy score on average has 56% and with some approaching 60%. 
+
+# Traditional Quant Model:
+Using the same dataset, I built the simple quant model, picking 3 metrics from each of the Earnings Momentum (25%), Quality (25%), and Valuation (50%) aspects.At each period, each stock will receive a weighted score from these three aspects and grouped into quintiles. In my portfolio, I will long the top quintile stocks within the for index and rebalance my holdings monthly. For this part, I have utilized Factset and not by Python. 
+
+Here are the results:
+
+|Category | Factor | Information Coefficient|
+|----- | ------ | -------------|
+| Overall Model | | 0.03
+| Earnings Momentum | PE NTM | 0.01|
+| Earnings Momentum | Pct Change in 9 months | 0.03|
+| Valuation | EV/ EBITDA | 0.03|
+| Valuation | IBES Earnings Estimate Dispersion | 0.07|
+| Valuation | FCF Margin | 0.03|
+| Quality | Net Debt | 0.03|
+| Quality | Accruals | 0.01|
+
+We could see that the individual factors are strongly correlated with the stocks returns howver, the current combination is not the strongest as the IC is almost zero, meaning the distribution of the score is as random as flipping a coin. 
 
 # Portfolio Performance
 Because of the asymmetric nature of investment, picking the strongest stocks within the index and hold them would pay off handsomely even though we might miss the smaller one. Such asymmetric payoff is even more apparent when we look at the portfolio strategy of the model.
@@ -281,12 +298,15 @@ Here's the year breakdown of RF and QR performance:
 |Avg	|0.07	|0.05	|NA|0.08|
 
 
-RF outperforms QR for 9 out of 14 years. Recently year, 
+RF outperforms QR for 9 out of 14 years. In recent years and both strategies outperformed benchmark 13 out of 14 years, showing the consistency of the strategy. 
+
 ![Alt Text](/assets/RF_Constituents.png)
 
-# Traditional Quant Model 
 
-I would like to compare the performance of my random forest model with a typical quant model 
+# Conclusion
+
+
+
 
 ## Feature Table 
 
