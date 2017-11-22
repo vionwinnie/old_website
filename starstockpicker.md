@@ -263,7 +263,8 @@ From a cumulative return perspective, RF delivers annualized excess return of 7%
 Here's the year breakdown of RF and QR performance: 
 
 
-|RF	|Quant	|Difference| Bench |
+|Year | RF	|Quant	|Difference| Bench |
+|--- | --- | ---- | ---- |
 |2005	|0.10	|0.06	|0.04| 0.11|
 |2006	|0.06	|0.02	|0.04|0.28|
 |2007	|0.11	|-0.04	|0.15|0.17|
@@ -278,6 +279,7 @@ Here's the year breakdown of RF and QR performance:
 |2016	|0.05	|0.11	|-0.06|0.19|
 |2017 (YTD)	|0.04	|0.09	|-0.05|0.20|
 |Avg	|0.07	|0.05	|NA|0.08|
+
 
 RF outperforms QR for 9 out of 14 years. Recently year, 
 ![Alt Text](/assets/RF_Constituents.png)
