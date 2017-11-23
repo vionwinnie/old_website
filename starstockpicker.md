@@ -12,7 +12,7 @@ noline: 1
 
 # Introduction
 
-Traditional quant models combine signals classify stocks by a top down approach: it assigns a fixed percentage for each signal and combine them altogether for a composite score. I am curious to see if deploying machine learning techniques can help improve betting averages of the stockpicking. My hypothesis is that these machine learning techniques can detect closer relationship of different metrics, assign better weights for different metrics, and thus draw a better separation plane between rising and declining stocks. 
+Traditional quant model adopts a fixed weight for different components to calculate composite score for universe. I am curious to see if deploying machine learning techniques, such as random forest classifier (RF) can outperform this standard quant method. My hypothesis is that these machine learning techniques can detect closer relationship of different metrics, assign better weights depending on different periods in time, and thus draw a better separation plane between rising and declining stocks.
 
 **Topic:** Comparing Performance of Random Forest Classifier Model (RF) with traditionial quant factor model (TR)
 
@@ -26,14 +26,13 @@ Traditional quant models combine signals classify stocks by a top down approach:
 
 I have extracted HSI constituents and the dates of changes in index composition. I saved each security as an individual csv. There are about 60 securities.
 
-For each security, I have extracted 25 base features, including price, cash from operations, earnings, forward P/E, daily volume, short interest, dividend and so on. I then derived 194 factors I have engineered from the base features, grouped into different categories. These categories capture different parts of the stock, from fundamental, momentum, market expectation. Some of them are averages, differences, and Z score of one metrics. Click [Here]{: Feature Table} to see the feature table.
+For each security, I have extracted 25 base features, including price, cash from operations, earnings, forward P/E, daily volume, short interest, dividend and so on. I then derived 194 factors I have engineered from the base features, grouped into different categories. These categories capture fundamental, momentum, market expectation of the stock. Some of them are averages, differences, and Z score of one metrics. Stroll to the bottom of the page to see the detailed table.
+
+
 
 ## Data Preprocessing 
 
-1. Before standardizing the data, I first load it into my iPython interpreter through the following function *DataProcessing()*. The function will return two data items: 
-
-1) a dictionary of stock-level data with classifier label ( 1,0 based on forward 1-month excess return)  
-2) a dictionary of constituents at each time period
+1. Before standardizing the data, I first load it into my iPython interpreter through the following function DataProcessing(). The function will return two data items: firstly, a dictionary of stock-level data with classifier label (1,0 based on forward 1-month excess return). Secondly, a dictionary of constituents at each time period 
 
 ```python
 import pandas as pd
@@ -109,7 +108,8 @@ Index_Add_Drop_path = os.path.join(os.path.dirname(__file__), '..', 'Input/Stock
     
 timeframe_dict, stock_dictionary= DataProcessing(IndexData_path,FeatureSelection_path,StockLevelSearch_path,Index_Add_Drop_path)
 ```
-2. With timeframe_dict and stock_dictionary at hand, we can now proceed to reshape the data to form cross-section for each time period and then split the data into training and testing set. I'm using an expanding window approach, therefore this is my home-made test_train_split, different from the sklearn standardized function. 
+With timeframe_dict and stock_dictionary at hand, we can now proceed to reshape the data to form cross-section for each time period and then split the data into training and testing set. I’m using an expanding window approach; therefore this is my home-made test_train_split, different from the sklearn standardized function.
+
 
 ```python
 def TestTrainSplit_TimeSeries(timeframe_dict, stock_dictionary,periodicity):
@@ -190,10 +190,9 @@ This is how a raw cross section would look like:
 |5|1.485|3.831|3.83|1.6|0.0081556|0.014077946|0.324343506|0.258543165|0.485366245|9.284521013|221.9177996|260.3835515|63.89780405|0.014547648|0.05190279|
 
 ## Standardization And Random Forest Classifier:
-For each training set, I first replace the NaN value with the column mean and then feed the training set to 
-I then use the sklearn toolkit to run my random forest classifier. To avoid overfitting, I set the maximum depth of the trees to be 10. 
+For each training set, I first replace the NaN value with the column mean and then feed the training set to I then use the sklearn toolkit to run my random forest classifier. To avoid overfitting, I set the maximum depth of the trees to be 10.
 
-Because this is a time series data where the latest week's prediction is influenced by the most recent week's data points, I have decided to train and test my model with an expanding window approach. For predicting Sep 2017 stock picking for example, I will first train my model with Jan 2004-Aug 2017 data and then use the model parameters for September prediction. 
+Because this is a time series data where the latest week’s prediction is influenced by the most recent week’s data points, I have decided to train and test my model with an expanding window approach. For predicting Sep 2017 stock picking for example, I will first train my model with Jan 2004-Aug 2017 data and then use the model parameters for September prediction.
 
 ![Alt Text](/assets/TrainingMethodology.PNG)
 
