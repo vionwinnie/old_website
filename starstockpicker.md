@@ -241,6 +241,7 @@ def random_forest_classifier(features, target,MaxDepth=None):
 
 To select the best parameters for RF, one needs to adjust for the depth of the tree as well as the maxmium number of features to be used (max_features). I have used a grid search method to identify the model with highest AUC and classification rate. 
 
+
 |	|	|	|Max_features	|	|	|	|	|Max_features	||
 |	|Classification Rate	|0.1	|0.2	|0.3	|	|AUC	|0.1	|0.2	|0.3|
 |	|5	|0.51	|0.52	|0.52	|	|5	|0.52	|0.53	|0.54|
