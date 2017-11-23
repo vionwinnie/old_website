@@ -239,22 +239,20 @@ def random_forest_classifier(features, target,MaxDepth=None):
 
 # Random Forest Model Selection
 
-To select the best parameters for RF, one needs to adjust for the depth of the tree as well as the maxmium number of features to be used (max_features). I have used a grid search method to identify the model with highest AUC and classification rate. 
+To select the best parameters for RF, one needs to adjust for the depth of the tree (max_depth) as well as the maxmium number of features to be used (max_features). I have used a grid search method to identify the model with highest AUC and classification rate. I tested different combinations of max_depth and max_features. 
 
+![Alt Text](/assets/GridSearch.png)
 
-|	|	|	|Max_features	|	|	|	|	|Max_features	||
-|	|Classification Rate	|0.1	|0.2	|0.3	|	|AUC	|0.1	|0.2	|0.3|
-|	|5	|0.51	|0.52	|0.52	|	|5	|0.52	|0.53	|0.54|
-|Max_Depth	|10	|0.54	|0.56	|0.55	|Max_Depth	|10	|0.57	|0.6	|0.59|
-|	|15	|0.53	|0.54	|0.53	|	|15	|0.56	|0.57	|0.58|
-
+From the result, I picked maxdepth = 10, max_features = 20% to be my model parameters.
 
 # Random Forest Model Evaluation  
 
 ## Here are the reuslts for Random Forest Model:
 **Avg. accuracy score is :** 0.56
-
 **SD of accuracy score is :** 0.06
+
+**Avg. AUC score is :** 0.60
+**SD of AUC score is :** 0.08
 
 **Runtime:** 63.5 secs
 
@@ -264,7 +262,7 @@ To select the best parameters for RF, one needs to adjust for the depth of the t
 Even though the accuracy score seems low compared to other classification problems, but in the context of stock picking, a betting average of 55% percent is better than much of the analysts in Wall Street. Therefore, it is encouraging to see my accuracy score on average has 56% and with some periods approaching 60%. 
 
 # Traditional Quant Model:
-Using the same dataset, I built the simple quant model, picking 3 metrics from each of the Earnings Momentum (25%), Quality (25%), and Valuation (50%) aspects.At each period, each stock will receive a weighted score from these three aspects and grouped into quintiles. In my portfolio, I will long the top quintile stocks within the for index and rebalance my holdings monthly. For this part, I have utilized Factset and not by Python. 
+Using the same dataset, I built the simple quant model, picking 1-3 metrics from each of the Earnings Momentum (25%), Quality (25%), and Valuation (50%) aspects.At each period, each stock will receive a weighted score from these three aspects and grouped into quintiles. In my portfolio, I will long the top quintile stocks within the for index and rebalance my holdings monthly. For this part, I have utilized Factset and not by Python. 
 
 Here are the results:
 
@@ -283,14 +281,47 @@ We could see that the individual factors are strongly correlated with the stocks
 
 # Portfolio Performance
 
-Because of the asymmetric nature of investment, picking the strongest stocks within the index and hold them would pay off handsomely even though we might miss the smaller one. Such asymmetric payoff is even more apparent when we look at the portfolio strategy of the model.
+Using the following code, I calculate the classification rate, AUC score for each testing set. 
 
-From a cumulative return perspective, RF delivers annualized excess return of 7% per year while Quant model returns 5%. From 2005 to 2017, RF outperforms benchmark by 200% while QR outperforms by 130%.
+```python
+    
+    ## Calculate Cumulative Return for Random Forest Model
+    for i in range(0,len(TestFeatureSet)-1):
+        new = np.column_stack((test_labelset,predicted_x, test_stocktag,test_featureset))
+        
+        # predicted_set T-1
+        x_predicted = new[new[:,1]==1][:,2]
+        # correct set T-1
+        x_correct = new[new[:,0]==1][:,2]
+    
+        # compare T-1 list with T-2 month
+        test_featureset = TestFeatureSet[i+1][13,:]
+        test_labelset = TestLabelSet[i+1]
+        test_stocktag = TestStockTagsSet[i+1]
+        mask = np.in1d(test_stocktag,x_predicted)
+        T1_simulated_return = np.nanmean(test_featureset[mask])
+        actual_holding.append(len(test_labelset))
+        
+        simu_return.append(T1_simulated_return)
+
+    list2 = [i+1 for i in simu_return]
+        
+    simu_cum_return = np.cumprod(list2)
+      
+    ## Calculate Benchmark Cumulative Return 
+    HSI = pd.read_csv(Para.IndexData_path,header=2)
+    HSI_CumReturn = np.array(HSI['Chg_1M']+1)[61:].cumprod()
+    
+```
 
 ![Alt Text](/assets/Cum_Return_Quant_v3.png)
 
-Here's the annualized excess return breakdown for RF and QR performance, also showing the benchmark return for the year: 
 
+Because of the asymmetric nature of investment, picking one stock that has extraordinary return would generate meaningful return even though other holdings have only modest performance. For example, in a 5-stock portfolio, holding one stock with 500% return while the other four stocks have zero return would get us a portfolio that doubles. Therefore, the key of the algorithm is to be able to include stocks that are outperforming the benchmark the most. 
+
+From a cumulative return perspective, RF delivers annualized excess return of 7% per year while Quant model returns 5%. From 2005 to 2017, RF outperforms benchmark by 200% while QR outperforms by 130%.
+
+Here's the annualized excess return breakdown for RF and QR performance, also showing the benchmark return for the year: 
 
 |Year | RF	|QR	|Difference| Bench |
 |--- |--- | --- | ---- | ---- |
@@ -309,15 +340,17 @@ Here's the annualized excess return breakdown for RF and QR performance, also sh
 |2017 (YTD)	|0.04	|0.09	|-0.05|0.20|
 |Avg	|0.07	|0.05	|NA|0.08|
 
-RF outperforms QR for 9 out of 14 years. In recent years and both strategies outperformed benchmark 13 out of 14 years, showing the consistency of the strategy. 
+RF outperforms QR for 9 out of 14 years. In recent years and both strategies outperformed benchmark 13 out of 14 years, showing the consistency of the strategy. In terms of concentration of the portfolio, RF holds about 35-60% of the consstituents and QT holds about 20% of the current number constituents. 
 
 ![Alt Text](/assets/RF_Constituents3.png)
 
-
 # Conclusion
 
+In my simulation, it has shown that random forest approach generates higher return than a 4-factor quant model. The outperformance can be attributed to the following two areas: Random forest can adjust for the weightings for each periods based on the current trends while still taking the market cyclicality into account. If valuation metrics in recent months matters less, the model can adjust the valuation factor weightings. 
 
+It has to note however, that a random forest model contains more securities than quant model. [implication?]
 
+Next steps: to explore is a sector-based model 
 
 ## Feature Table 
 
