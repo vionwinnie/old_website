@@ -237,6 +237,17 @@ def random_forest_classifier(features, target,MaxDepth=None):
     accuracy_plot(timeframe_dict,accuracy_score_list,para.period)
 ```
 
+# Random Forest Model Selection
+
+To select the best parameters for RF, one needs to adjust for the depth of the tree as well as the maxmium number of features to be used (max_features). I have used a grid search method to identify the model with highest AUC and classification rate. 
+
+|	|	|	|Max_features	|	|	|	|	|Max_features	||
+|	|Classification Rate	|0.1	|0.2	|0.3	|	|AUC	|0.1	|0.2	|0.3|
+|	|5	|0.51	|0.52	|0.52	|	|5	|0.52	|0.53	|0.54|
+|Max_Depth	|10	|0.54	|0.56	|0.55	|Max_Depth	|10	|0.57	|0.6	|0.59|
+|	|15	|0.53	|0.54	|0.53	|	|15	|0.56	|0.57	|0.58|
+
+
 # Random Forest Model Evaluation  
 
 ## Here are the reuslts for Random Forest Model:
@@ -249,7 +260,7 @@ def random_forest_classifier(features, target,MaxDepth=None):
 ![Alt Text](/assets/AUCScoreChart.png)
 ![Alt Text](/assets/AccuracyScoreChart.png)
 
-Even though the accuracy score seems low compared to other classification problems, but in the context of stock picking, a betting average of 55% percent already makes you a rock star. Therefore, it is encouraging to see my accuracy score on average has 56% and with some approaching 60%. 
+Even though the accuracy score seems low compared to other classification problems, but in the context of stock picking, a betting average of 55% percent is better than much of the analysts in Wall Street. Therefore, it is encouraging to see my accuracy score on average has 56% and with some periods approaching 60%. 
 
 # Traditional Quant Model:
 Using the same dataset, I built the simple quant model, picking 3 metrics from each of the Earnings Momentum (25%), Quality (25%), and Valuation (50%) aspects.At each period, each stock will receive a weighted score from these three aspects and grouped into quintiles. In my portfolio, I will long the top quintile stocks within the for index and rebalance my holdings monthly. For this part, I have utilized Factset and not by Python. 
@@ -270,6 +281,7 @@ Here are the results:
 We could see that the individual factors are strongly correlated with the stocks returns howver, the current combination is not the strongest as the IC is almost zero, meaning the distribution of the score is as random as flipping a coin. 
 
 # Portfolio Performance
+
 Because of the asymmetric nature of investment, picking the strongest stocks within the index and hold them would pay off handsomely even though we might miss the smaller one. Such asymmetric payoff is even more apparent when we look at the portfolio strategy of the model.
 
 From a cumulative return perspective, RF delivers annualized excess return of 7% per year while Quant model returns 5%. From 2005 to 2017, RF outperforms benchmark by 200% while QR outperforms by 130%.
@@ -295,7 +307,6 @@ Here's the annualized excess return breakdown for RF and QR performance, also sh
 |2016	|0.05	|0.11	|-0.06|0.19|
 |2017 (YTD)	|0.04	|0.09	|-0.05|0.20|
 |Avg	|0.07	|0.05	|NA|0.08|
-
 
 RF outperforms QR for 9 out of 14 years. In recent years and both strategies outperformed benchmark 13 out of 14 years, showing the consistency of the strategy. 
 
