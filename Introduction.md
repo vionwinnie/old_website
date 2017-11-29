@@ -10,7 +10,7 @@ Hi every one, this is where I showcase my data science projects. I have started 
 
 ### Personal History
 
-I grew up from Hong Kong, attended United World College in Hong Kong and then studied at Middlebury College in Vermont, USA on full scholarship. I majored in Middle Eastern history and minor in Mathematics and Arabic. I even studied abroad in Jordan for an entire year! 
+I grew up from Hong Kong, attended United World College in Hong Kong and then studied at Middlebury College in Vermont, USA on full scholarship. I majored in Middle Eastern history and minor in Mathematics and Arabic. I even studied abroad in Jordan for an entire year! After undergrad, I work at Fidelity Investments in Boston and then in Hong Kong.
 
 I see connections of my undergrad study with data science: historical inquiry requires you to step into the shoes of historical figures, understand the cause and origins of historical phenomena, to collect and interpret hisotical sources. These skills are similar to the critical thinking skills one requires in Data Science, for example, meaningful feature engineering or bagging to obtain a more unbiased parameter estimation. Ultimately, both discipline seek to interpret and explain phenomena and human behavior. Additionally, Data Science has a prediction dimension to it, focusing on forecasting the future with the current data.
 
