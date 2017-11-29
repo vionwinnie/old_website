@@ -14,11 +14,12 @@ Here are the list of projects that I have been working on:
 - [Star Hong Kong Stock Picker](starstockpicker.html)
  
  
-## Others:
+## Others (in iPython notebook or PDF format):
  
 **Projects I have done to familiarize myself with coding, visualization, and statistic concepts:**
 - Dictionary of Anna Karenina - Python Dictionary, IF-ITF in Natural Language Processing
 - Predicting BMI from countries around the world - Regression, ANOVA, ANCOVA, Regression Assumption Diagnostics
+  -- My STAT E-150 Project team collects about 150 socioeconomic data for countries around the world and we regress these variables with mean BMI of these countries. Through this exercise, we want to identify what are the variables that can explain the variations in BMI across the globe. 
 - [Predicting Black Friday Sales](/sideproj/BlackFridayRegressionModel.ipynb) - Regression, Multicollinearity
  
  
