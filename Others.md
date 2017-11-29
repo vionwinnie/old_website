@@ -1,11 +1,12 @@
  ---
- title: Other Side Projects
- shorttitle: Others
- layout: default
- nav_include: 5
- noline: 1
- ---
- 
+title: Other Side Projects
+shorttitle: Others
+layout: default
+nav_include: 3
+noline: 1
+---
+
+## Background:
  
  ## Major Projects
  
