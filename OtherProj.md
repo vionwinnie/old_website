@@ -10,8 +10,8 @@ noline: 1
  
  ## Major Projects
  
- [Looking for the True Yelp Rating](YelpReview.html) 
- [Star Hong Kong Stock Picker](starstockpicker.html)
+- [Looking for the True Yelp Rating](YelpReview.html) 
+- [Star Hong Kong Stock Picker](starstockpicker.html)
  
  
  ## Others:
