@@ -19,7 +19,7 @@ Here are the list of projects that I have been working on:
 **Projects I have done to familiarize myself with coding, visualization, and statistic concepts:**
 - Dictionary of Anna Karenina - Python Dictionary, IF-ITF in Natural Language Processing
 
- This is my first hands-on Python project. 
+  This is my first hands-on Python project. 
 
 
 - Predicting BMI from countries around the world - Regression, ANOVA, ANCOVA, Regression Assumption Diagnostics
@@ -29,7 +29,7 @@ Here are the list of projects that I have been working on:
   
 - [Predicting Black Friday Sales](/sideproj/BlackFridayRegressionModel.ipynb) - Regression, Multicollinearity
  
- I have joined this Analytics Vidhya contest. While others in the competition have used xgboost to construct their models, I have used this dataset to strengthen my foundation in regression analysis and diagonstics.
+  I have joined this Analytics Vidhya contest. While others in the competition have used xgboost to construct their models, I have used this dataset to strengthen my foundation in regression analysis and diagonstics.
  
  
 ## Resources:
