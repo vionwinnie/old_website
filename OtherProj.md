@@ -19,7 +19,7 @@ Here are the list of projects that I have been working on:
 **Projects I have done to familiarize myself with coding, visualization, and statistic concepts:**
 - Dictionary of Anna Karenina
 - Predicting BMI from countries around the world 
-- [Predicting Black Friday Sales](/sideproj/Black Friday EDA and Regression Model.ipynb)
+- [Predicting Black Friday Sales]('/sideproj/Black Friday EDA and Regression Model.ipynb')
  
  
 ## Resources:
