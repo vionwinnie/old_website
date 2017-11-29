@@ -14,9 +14,9 @@ Here are the list of projects that I have been working on:
 - [Star Hong Kong Stock Picker](starstockpicker.html)
  
  
-## Others (in iPython notebook or PDF format):
+## Others :
  
-**Projects I have done to familiarize myself with coding, visualization, and statistic concepts:**
+**Projects I have done to familiarize myself with coding, visualization, and statistic concepts (in iPython notebook or PDF format):**
 - Dictionary of Anna Karenina - Python Dictionary, IF-ITF in Natural Language Processing
 
   This is my first hands-on Python project. 
