@@ -6,15 +6,15 @@ nav_include: 3
 noline: 1
 ---
 
-# Background:
+ Here are the list of projects that I have been working on:
  
- ## Major Projects
+ # Major Projects
  
 - [Looking for the True Yelp Rating](YelpReview.html) 
 - [Star Hong Kong Stock Picker](starstockpicker.html)
  
  
- ## Others:
+ # Others:
  
  **Projects I have done to familiarize myself with coding, visualization, and statistic concepts:**
  -Dictionary of Anna Karenina
@@ -22,7 +22,7 @@ noline: 1
  -Predicting Black Friday Sales (from Analytics Vidhya)
  
  
- ## Resources:
+ # Resources:
  I read and look for ideas on these websites regularly:
  
  - [Analytics Vidhya](https://www.analyticsvidhya.com/) - Great website with posts on different techniques and case samples
