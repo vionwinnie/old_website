@@ -190,7 +190,7 @@ This is how a raw cross section would look like:
 |5|1.485|3.831|3.83|1.6|0.0081556|0.014077946|0.324343506|0.258543165|0.485366245|9.284521013|221.9177996|260.3835515|63.89780405|0.014547648|0.05190279|
 
 ## Standardization And Random Forest Classifier:
-For each training set, I first replace the NaN value with the column mean and then feed the training set to I then use the sklearn toolkit to run my random forest classifier. To avoid overfitting, I set the maximum depth of the trees to be 10.
+For each training set, I first replace the NaN value with the column mean and then feed the training set to standardization and then  run my random forest classifier. 
 
 Because this is a time series data where the latest week’s prediction is influenced by the most recent week’s data points, I have decided to train and test my model with an expanding window approach. For predicting Sep 2017 stock picking for example, I will first train my model with Jan 2004-Aug 2017 data and then use the model parameters for September prediction.
 
@@ -198,7 +198,7 @@ Because this is a time series data where the latest week’s prediction is influ
 
 Here's the code to run the model for each period and visualize the results in charts:
 ```python
-def random_forest_classifier(features, target,MaxDepth=None):
+def random_forest_classifier(features, target,MaxDepth=None, MaxFeatures=None):
     """
     Reference: http://dataaspirant.com/2017/06/26/random-forest-classifier-python-scikit-learn/
     To train the random forest classifier with features and target data
@@ -206,7 +206,7 @@ def random_forest_classifier(features, target,MaxDepth=None):
     :param target:
     :return: trained random forest classifier
     """
-    clf = RandomForestClassifier(max_depth = MaxDepth)
+    clf = RandomForestClassifier(max_depth = MaxDepth,max_features=MaxFeatures)
     clf.fit(features, target)
     return clf
 
@@ -237,15 +237,15 @@ def random_forest_classifier(features, target,MaxDepth=None):
     accuracy_plot(timeframe_dict,accuracy_score_list,para.period)
 ```
 
-# Random Forest Model Selection
+## Random Forest Model Selection
 
-To select the best parameters for RF, one needs to adjust for the depth of the tree (max_depth) as well as the maxmium number of features to be used (max_features). I have used a grid search method to identify the model with highest AUC and classification rate. I tested different combinations of max_depth and max_features. 
+To select the best parameters for RF, one needs to adjust for the depth of the tree (max_depth) as well as the maxmium number of features to be used (max_features). Selecting maxmium number of features can also avoid running into the problem of overfitting. I have used a grid search method to identify the model with highest AUC and classification rate. I tested different combinations of max_depth and max_features. 
 
 ![Alt Text](/assets/GridSearch.png)
 
-From the result, I picked maxdepth = 10, max_features = 20% to be my model parameters.
+From the result, the model with maxdepth = 10, max_features = 20% has the best classification rate and AUC score. So I will use this as my model parameter. 
 
-# Random Forest Model Evaluation  
+## Random Forest Model Evaluation  
 
 ## Here are the reuslts for Random Forest Model:
 **Avg. accuracy score is :** 0.56
@@ -261,7 +261,7 @@ From the result, I picked maxdepth = 10, max_features = 20% to be my model param
 
 Even though the accuracy score seems low compared to other classification problems, but in the context of stock picking, a betting average of 55% percent is better than much of the analysts in Wall Street. Therefore, it is encouraging to see my accuracy score on average has 56% and with some periods approaching 60%. 
 
-# Traditional Quant Model:
+## Traditional Quant Model:
 Using the same dataset, I built the simple quant model, picking 1-3 metrics from each of the Earnings Momentum (25%), Quality (25%), and Valuation (50%) aspects.At each period, each stock will receive a weighted score from these three aspects and grouped into quintiles. In my portfolio, I will long the top quintile stocks within the for index and rebalance my holdings monthly. For this part, I have utilized Factset and not by Python. 
 
 Here are the results:
@@ -277,9 +277,9 @@ Here are the results:
 | Quality | Net Debt | 0.03|
 | Quality | Accruals | 0.01|
 
-We could see that the individual factors are strongly correlated with the stocks returns howver, the current combination is not the strongest as the IC is almost zero, meaning the distribution of the score is as random as flipping a coin. 
+We could see that the individual factors are strongly correlated with the stocks returns howver, the current combination is not the strongest as the IC is just 0.01, meaning the distribution of the score is as random as flipping a coin. 
 
-# Portfolio Performance
+## Portfolio Performance
 
 Using the following code, I calculate the classification rate, AUC score for each testing set. 
 
@@ -346,11 +346,11 @@ RF outperforms QR for 9 out of 14 years. In recent years and both strategies out
 
 # Conclusion
 
-In my simulation, it has shown that random forest approach generates higher return than a 4-factor quant model. The outperformance can be attributed to the following two areas: Random forest can adjust for the weightings for each periods based on the current trends while still taking the market cyclicality into account. If valuation metrics in recent months matters less, the model can adjust the valuation factor weightings. 
+In my simulation, it has shown that random forest approach generates higher return than a simple 4-factor quant model. The outperformance can be attributed to the following two areas: Random forest can adjust for the weightings for each periods based on the current trends while still taking the market cyclicality into account. If valuation metrics in recent months matters less, the model can adjust the valuation factor weightings. 
 
-It has to note however, that a random forest model contains more securities than quant model. [implication?]
+We have to note however in real life application that the random forest model contains more securities than quant model. It means that the turnover of the portfolio would be higher and potentially have a higher trading costs. 
 
-Next steps: to explore is a sector-based model 
+Further areas of research would include exploration into other methods of machine learning such as neural nets and SVM. We can also consider running a sector-based model as well.
 
 ## Feature Table 
 
