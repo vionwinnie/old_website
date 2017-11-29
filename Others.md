@@ -1,4 +1,4 @@
----
+ ---
  title: Other Side Projects
  shorttitle: Others
  layout: default
