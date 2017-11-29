@@ -17,9 +17,9 @@ Here are the list of projects that I have been working on:
 ## Others:
  
 **Projects I have done to familiarize myself with coding, visualization, and statistic concepts:**
-- Dictionary of Anna Karenina
-- Predicting BMI from countries around the world 
-- [Predicting Black Friday Sales](/sideproj/BlackFridayRegressionModel.ipynb)
+- Dictionary of Anna Karenina - Python Dictionary, IF-ITF in Natural Language Processing
+- Predicting BMI from countries around the world - Regression, ANOVA, ANCOVA, Regression Assumption Diagnostics
+- [Predicting Black Friday Sales](/sideproj/BlackFridayRegressionModel.ipynb) - Regression, Multicollinearity
  
  
 ## Resources:
