@@ -8,7 +8,7 @@
  
  ## Major Projects
  
- [Looking for the True Yelp Rating](policies.html) 
+ [Looking for the True Yelp Rating](YelpReview.html) 
  [Star Hong Kong Stock Picker](starstockpicker.html)
  
  
