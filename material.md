@@ -23,8 +23,8 @@ noline: 1
 ## Resources:
 I read and look for ideas on these websites regularly:
 
-[Analytics Veidhya](https://www.analyticsvidhya.com/) - Great website with posts on different techniques and case samples
-[D3.JS](https://github.com/d3/d3/wiki/Gallery) - Examples for customized data visualization 
+- [Analytics Veidhya](https://www.analyticsvidhya.com/) - Great website with posts on different techniques and case samples
+- [D3.JS](https://github.com/d3/d3/wiki/Gallery) - Examples for customized data visualization 
 
 
 Quora, cross validation, and stack overflow are also must-go if you learn best by asking questions and replying to questions. 
