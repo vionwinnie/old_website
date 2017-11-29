@@ -1,6 +1,6 @@
 ---
 title: Introduction
-shorttitle: Intro
+shorttitle: Introduction
 layout: default
 nav_include: 2
 noline: 1
