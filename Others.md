@@ -1,10 +1,11 @@
-----
+---
  title: Other Side Projects
  shorttitle: Others
  layout: default
  nav_include: 5
  noline: 1
- ----
+ ---
+ 
  
  ## Major Projects
  
