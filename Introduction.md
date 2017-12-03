@@ -17,4 +17,4 @@ I see connections of my undergrad study with data science: historical inquiry re
 In my free time, I enjoy playing table tennis, reading, photography, and traveling. 
 
 
-[photo holder]
+![photo holder](/assets/IMG_4071.JPG)
