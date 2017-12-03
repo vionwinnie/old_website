@@ -27,7 +27,7 @@ Here are the list of projects that I have been working on:
   My STAT E-150 Project team collects about 150 socioeconomic data for countries around the world and we regress these variables with mean BMI of these countries. Through this exercise, we want to identify what are the variables that can explain the variations in BMI across the globe. 
   
   
-- [Predicting Black Friday Sales](/sideproj/BlackFridayRegressionModel.ipynb) - Regression, Multicollinearity
+- [Predicting Black Friday Sales](https://github.com/vionwinnie/vionwinnie.github.io/blob/master/sideproj/BlackFridayRegressionModel.ipynb) - Regression, Multicollinearity
  
    I have joined this Analytics Vidhya contest. While others in the competition have used xgboost to construct their models, I have used this dataset to strengthen my foundation in regression analysis and diagonstics.
  
