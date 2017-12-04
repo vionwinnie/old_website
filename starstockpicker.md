@@ -247,7 +247,7 @@ From the result, the model with maxdepth = 10, max_features = 20% has the best c
 
 ## Random Forest Model Evaluation  
 
-## Here are the reuslts for Random Forest Model:
+### Here are the reuslts for Random Forest Model:
 **Avg. accuracy score is :** 0.56
 **SD of accuracy score is :** 0.06
 
