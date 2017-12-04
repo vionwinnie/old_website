@@ -17,7 +17,7 @@ Here are the list of projects that I have been working on:
 ## Others :
  
 **Projects I have done to familiarize myself with coding, visualization, and statistic concepts (in iPython notebook or PDF format):**
-- Dictionary of Anna Karenina - Python Dictionary, IF-ITF in Natural Language Processing
+- [Dictionary of Anna Karenina](https://github.com/vionwinnie/vionwinnie.github.io/blob/master/sideproj/AnnaKareninaLookUp.ipyn) - Python Dictionary, IF-ITF in Natural Language Processing
 
   This is my first hands-on Python project. 
 
