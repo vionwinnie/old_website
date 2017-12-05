@@ -22,7 +22,7 @@ Here are the list of projects that I have been working on:
   This is my first hands-on Python project. 
 
 
-- Predicting BMI from countries around the world - Regression, ANOVA, ANCOVA, Regression Assumption Diagnostics
+- [Predicting BMI from countries around the world](https://github.com/vionwinnie/vionwinnie.github.io/blob/master/sideproj/ObesityFinalReport_STAT_E150.docx) - Regression, ANOVA, ANCOVA, Regression Assumption Diagnostics
 
   My STAT E-150 Project team collects about 150 socioeconomic data for countries around the world and we regress these variables with mean BMI of these countries. Through this exercise, we want to identify what are the variables that can explain the variations in BMI across the globe. 
   
