@@ -43,8 +43,9 @@ We have the following variables:
 
 ## Let's get started!
 
-'''
-Loading the setups
+```python
+
+#Loading the setups
 import itertools
 import pymc
 import scipy.stats as stats
@@ -56,10 +57,10 @@ from scipy.special import erf
 import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
-'''
+```
 
 Read the raw data and break down the data into restuarants and further into food and service segments:
-'''
+```python
 df_restaurant = pd.read_csv(r"C:\Users\Dell\Documents\Python Scripts\Data\dftouse4.csv")
 
 ## Compute standard error 
@@ -85,10 +86,10 @@ for key in Food.keys():
 for key in Service.keys():
     Service[key] = df_service[:][df_service.rid == key]
 
-'''
+```
 
 ## Data Exploration for a number of restaurants with varying sample sizes:
-'''
+```python
 large = restaurant_breakdown.index[0:5]
 mid = restaurant_breakdown.index[5000:5002]
 small = restaurant_breakdown.index[-4:-1]
@@ -118,13 +119,77 @@ def shrinkage_plot(means, thetas, theta_vars, counts):
         plt.ylim([0, 1.05])
         sns.despine(offset=-2, trim=True, left=True)
     return plt.gca()
-'''
-## Need to add a more detailed explanation of the model setup with diagrams
+```
+## Model setup
+
+Thus there are $J=8$ schools, and in the $jth$ school, there are $n_j$ students. We are not given the scores of individual students, just the average score in the school: the so-called "sample-mean" (after all this is a sample of students from the school).
+
+We label the sample mean of each group $j$ as
+
+$$\bar{y_j} = \frac{1}{n_j} \sum_{i=1}^{n_j} y_{ij}$$
+
+with sampling variance:
+
+$$\sigma_j^2 = \sigma^2/n_j$$
+
+  
+>We can then write the likelihood for each $\theta_j$ using the sufficient statistics, $\bar{y}_j$:
+
+$$\bar{y_j} \vert \theta_j \sim N(\theta_j,\sigma_j^2).$$
+
+Since we are assuming the variance $\sigma^2$ is known from all the schools we have $$\sigma_j^2 = \sigma^2/n_j$$ to be the standard error of the sample-mean.
+
+The idea is that if a particular school is very likely to have systematically positive treatment effect, we should be able to estimate that $\theta_j$ is relatively large and $\sigma_j^2$ is relatively small. If on the other hand, a school giving both positive and negative treatments we'll estimate $\theta_j$ around 0 and a relatively large variance $\sigma_j^2$.
+
+This is
+
+>a notation that will prove useful later because of the flexibility in allowing a separate variance $\sigma_j^2$ for the mean of each group $j$. ...all expressions will be implicitly conditional on the known values $\sigma_j^2$.... Although rarely strictly true, the assumption of known variances at the sampling level of the model is often an adequate approximation.
+
+>The treatment of the model provided ... is also appropriate for situations in which the variances differ for reasons other than the number of data points in the experiment. In fact, the likelihood  can appear in much more general contexts than that stated here. For example, if the group sizes $n_j$ are large enough, then the means $\bar{y_j}$ are approximately normally distributed, given $\theta_j$, even when the data $y_{ij}$ are not. 
+
+In other problems, like the one on your homework where we will use this model, you are given a $\sigma_2$ calculated from each group or unit. But since you will want  the variance of the sample mean, you will have to calculate the standard error by dividing out by the count in that unit.
+
+![](images/restuarant_model.png)
+
+Let us choose a prior:
+
+$$
+\theta_j \sim N(\mu, \tau^2)
+$$
+
+$\theta_j$ is the parameter we were estimating by the review-topic mean earlier.
+
+The second of the formulae above will allow us to share information between reviews within each restaurant.
+
+After doing some math, we can calculate the posterior distribution:
+
+$$
+p(\theta_j\, \vert \,\bar{y}_{j})\propto p(\bar{y}_{j}\, \vert \,\theta_j) p(\theta_j)
+\propto \exp\left(-\frac{1}{2 \sigma_j^2} \left(\bar{y}_{j}-\theta_j\right)^2\right)  \exp\left(-\frac{1}{2 \tau^2} \left(\theta_j-\mu\right)^2\right)
+$$
+
+After some amount of algebra you'll find that this is the kernel of a normal distribution with mean 
+
+$\frac{1}{\sigma^2_{\text{post}}}\left(\frac{\mu}{\tau^2} + \frac{\bar{y}_{j}}{\sigma^2_{j}}\right)$ 
+
+and variance 
+
+$ \sigma^2_{\text{post}} = \left(\frac{1}{\tau^2} + \frac{1}{\sigma^2_{j}}\right)^{-1}$. 
+
+We can simplify the mean further to see a familiar form:
+
+$$
+\mathbb{E}[\theta_j\, \vert \,\bar y_j, \mu, \sigma_j^2, \tau^2] = \frac{\sigma_j^2}{\sigma_j^2 + \tau^2} \mu + \frac{\tau^2}{\sigma_j^2 + \tau^2}\bar{y}_{j}.
+$$
+
+The _posterior mean_ is a weighted average of the prior mean and the observed average. 
+
+
 
 ### Set up the hierarchical model for food ratings:
 A Hierarchical model with non-centered parametrization. Theta of a reviewer is drawn from a Normal hyper-prior distribution with parameters μμ and ττ. Once we get a θjθj then can draw the means from it given the data σjσj and one such draw corresponds to our data.
 
-'''
+```python
 dict_trace_food = {}
 dict_pp_food = {}
 
@@ -174,6 +239,7 @@ for elem in selected_rid:
     
     dict_trace_service[elem] = trace2
     dict_pp_service[elem] = ppc['obs'] 
+```
 
  
 
