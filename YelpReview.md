@@ -66,7 +66,6 @@ df_restaurant = pd.read_csv(r"C:\Users\Dell\Documents\Python Scripts\Data\dftous
 ## Compute standard error 
 df_restaurant['var_sample']=df_restaurant['var']/df_restaurant['count']
 df_restaurant['sigma']=np.sqrt(df_restaurant['var_sample'])
-
 df_food = df_restaurant[:][df_restaurant.topic ==0]
 df_service = df_restaurant[:][df_restaurant.topic ==1]
 
@@ -86,10 +85,6 @@ for key in Food.keys():
 for key in Service.keys():
     Service[key] = df_service[:][df_service.rid == key]
 
-```
-
-## Data Exploration for a number of restaurants with varying sample sizes:
-```python
 large = restaurant_breakdown.index[0:5]
 mid = restaurant_breakdown.index[5000:5002]
 small = restaurant_breakdown.index[-4:-1]
@@ -121,14 +116,15 @@ def shrinkage_plot(means, thetas, theta_vars, counts):
     return plt.gca()
 ```
 ## Model setup
-We know that $$ Posterior \sim Likelihood x Prior $$
+We know that $ Posterior \sim Likelihood \cdot Prior $
 But what is posterior, likelihood and prior in this case?
 
-We know that there are $Q=1000$ restaurants, and in the $qth$ restaurant, there are $n_q$ reviews. What we know about each review is mean probability of a sentence being positive. We don't know $ p( being positive | sentence)$, but the mean of all the sentences in that review. 
+We know that there are $Q=1000$ restaurants, and in the $qth$ restaurant, there are $n_q$ reviews. 
+What we know about each review is mean probability of a sentence being positive. 
+We don't know $ p( being positive | sentence)$, but the mean of all the sentences in that review. 
 
-For each $qth$ restaurant, the sample mean of each group $q$ is  $$\bar{y_q} = \frac{1}{n_q} \sum_{i=1}^{n_q} y_{iq}$$
-With sampling variance: $$\sigma_q^2 = \sigma^2/n_q$$
-
+For each $qth$ restaurant, the sample mean of each group $q$ is  $\bar{y_q} = \frac{1}{n_q} \sum_{i=1}^{n_q} y_{iq}$
+With sampling variance: $\sigma_q^2 = \sigma^2/n_q$
 Likelihood of each $\theta_q$, $\bar{y}_q$ is $$\bar{y_q} \vert \theta_q \sim N(\theta_q,\sigma_q^2).$$
 
 If we choose the prior to be: 
@@ -137,22 +133,25 @@ $$ \theta_j \sim N(\mu, \tau^2) $$
 Multiplying likelihood and prior together will give us the posterior distribution, after simplication then we will see that The _posterior mean_ is a weighted average of the prior mean and the observed average. 
 
 Our non-centered hierarchical model will look like the following:
-We estimate $\theta_{j}$ from a Normal hyper-prior distribution with parameters of $\nu $ and $\tau $. With the $\mu$ and $\tau$ drawn, we can then compute $\theta_{j}$. After that, we can then estimate the mean, $\bar{y_{j}}$ with the $\sigma_{j}}$ given in our data.
+We estimate $\theta_{j}$ from a Normal hyper-prior distribution with parameters of $\nu $ and $\tau $. With the $\mu$ and $\tau$ drawn, we can then compute $\theta_{j}$. After that, we can then estimate the mean, $\bar{y_{j}}$ with the $\sigma_{j}$ given in our data.
 The deterministic setup between $\theta$, $\mu$, and $\tau$ reduces the correlation of actively sampled variables, mitigating curvature and steepness.
 
 Hyperpriors:
+
 $$
 \mu \sim \mathcal{N}(0, 5)\\
 \tau \sim \text{Half-Cauchy}(0, 5)\\
 $$
 
 Prior:
+
 $$
 \nu_{j} \sim \mathcal{N}(0, 1)\\
 \theta_{j} = \mu + \tau\nu_j \\
 $$
 
 Likelihood:
+
 $$
 \bar{y_{j}} \sim \mathcal{N}(\theta_{j}, \sigma_{j})
 $$
@@ -186,11 +185,7 @@ dict_pp_service = {}
 for elem in selected_rid:
     observed = np.array(Service_Selected[elem]['mean'])
     sigma = np.array(Service_Selected[elem]['sigma'])    
-    bool = np.where( sigma <= 0 )
     
-    observed = np.delete(observed, bool[0]) 
-    sigma = np.delete(sigma,bool[0])
-
     with pm.Model() as rest_1:
         
         ## Prior 
