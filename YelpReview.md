@@ -318,13 +318,27 @@ service_list = [service_score]
 df1 = pd.DataFrame(food_list).transpose()
 df1.columns = ['Food_Score']
 df1['rid'] = df1.index
-df1['rank_by_food'] = df1['Food_Score'].rank(ascending=False)
-column_order = ['rid','Food_Score','rank_by_food']
 df1 = df1[column_order]
 df2 = pd.DataFrame(service_list).transpose()
 df2.columns = ['Service_Score']
 df2['rid'] = df2.index
-df2['rank_by_service'] = df2['Service_Score'].rank(ascending=False)
-
 df_final=df1.merge(df2,left_on='rid',right_on='rid',how='outer')
+overall_score = [np.nanmean([df['food_score'][i],df['service_score'][i]]) for i in range(0,10)]
+df['overall_score'] = overall_score
+df['overall_rank'] = df['overall_score'].rank(ascending=False)
+
 ```
+This is how the final ranking looks like:
+
+|rid|food score|service score|overall_score|overall ranking|
+|ABrSt3fsirLrUYNVrD3fbQ|0.758|0.682|0.720|1|
+||0.708|NaN|0.708|2|
+||0.628|0.758|0.693|3|
+||0.669|0.699|0.684|4|
+||0.645|NaN|0.645|5|
+||0.591|0.668|0.629|6|
+||||0.621|7|
+|||||8|
+|||||9|
+|||||10|
+
