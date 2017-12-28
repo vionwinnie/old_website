@@ -205,6 +205,126 @@ for elem in selected_rid:
     dict_pp_service[elem] = ppc['obs'] 
 ```
 
+Let's view the traceplot and the autocorrelation plot of the food and service plots:
+
+```python
+
+restaurants = list(food.keys())
+
+for i,rest in enumerate(restaurants):
+    print('rid=',rest)
+    pm.traceplot(food[rest])
+    pm.autocorrplot(food[rest])
+
+for i,rest in enumerate(restaurants):
+    print('rid=',rest)
+    pm.traceplot(service[rest])
+    pm.autocorrplot(service[rest])
+ 
+```
+
+
+For resturant rid= JhupPnWfNlMJivnWB5druA:
+Food Rating Model:
+![Alt Text](/assets/rest1.PNG)
+Service Rating Model:
+![Alt Text](/assets/service1.PNG)
+
+
+For resturant rid= muqFM9Hoamh_fGL4MPeZqg:
+Food Rating Model:
+![Alt Text](/assets/rest2.PNG)
+Service Rating Model:
+![Alt Text](/assets/service2.PNG)
  
 
-## Reflection and Future Application:
+Our resampling looks smooth on the traceplots for both restaurants. 
+
+## Visualizing pooling effects of the hierarchical model:
+
+```python
+
+for i,p in enumerate(selected_rid):
+    mean_est = np.array(df_food[df_food.rid==p]['mean']).tolist()
+    counts = np.array(df_food[df_food.rid==p]['count']).tolist()
+    
+    sigma = np.array(Food_Selected[p]['sigma'])
+    bool = np.where( sigma <= 0 )
+    
+    mean_est = np.delete(mean_est, bool[0]) 
+    counts = np.delete(counts,bool[0])
+    df = food[p]['theta']
+    
+    theta_2 = df[1::2, :]
+    theta_est = np.mean(theta_2,axis=0)
+    theta_var = np.var(theta_2,axis=0)
+    
+    plt.subplot(10,1,i+1)
+    shrinkage_plot(mean_est,theta_est,theta_var,counts)
+    plt.title(('rest_',i,len(theta_est),'review of Food'))
+```
+![Alt Text](/assets/pool.PNG)
+ 
+ For shrinkage plots for service ratings:
+```python
+
+ for i,p in enumerate(restaurants):
+    mean_est = np.array(df_service[df_service.rid==p]['mean']).tolist()
+    counts = np.array(df_service[df_service.rid==p]['count']).tolist()
+    
+    sigma = np.array(Service_Selected[p]['sigma'])
+    bool = np.where( sigma <= 0 )
+    
+    mean_est = np.delete(mean_est, bool[0]) 
+    counts = np.delete(counts,bool[0])
+    df = service[p]['theta']
+    
+    theta_2 = df[1::2, :]
+    theta_est = np.mean(theta_2,axis=0)
+    theta_var = np.var(theta_2,axis=0)
+    
+    plt.subplot(10,1,i+1)
+    shrinkage_plot(mean_est,theta_est,theta_var,counts)
+    plt.title(('rest_',i,len(theta_est),'review of Service'))
+```
+![Alt Text](/assets/pool1.PNG)
+
+We can see that for each restaurant, the hierarchical model we set up pass information from one review to another. The raw mean for each review can be dispersed widely. But after the modeling, the resampled estimation of the same parameter is drawn towards the middle due to the pooling effects.
+
+## Prototype Ranking Order:
+With the resampling for both food and service ratings, we can now estimate with more comfort for each aspect of a restaurants. What happens next is that we extract the score for both food and service and combine into one rating. 
+
+```python
+food_score = {}
+service_score = {}
+restaurants = list(food.keys())
+
+for i,p in enumerate(restaurants):
+    df_food = food[p]['theta']
+    df = service[p]['theta']
+    
+    theta_2 = df[1::2, :]
+    theta_1 = df_food[1::2, :]
+
+    theta_est_2 = np.mean(np.mean(theta_2,axis=0)) #service
+    theta_est_1 = np.mean(np.mean(theta_1,axis=0))  #food
+    
+    food_score[p] = theta_est_1
+    service_score[p] = theta_est_2
+    
+food_list = [food_score]
+service_list = [service_score]
+
+df1 = pd.DataFrame(food_list).transpose()
+df1.columns = ['Food_Score']
+df1['rid'] = df1.index
+df1['rank_by_food'] = df1['Food_Score'].rank(ascending=False)
+column_order = ['rid','Food_Score','rank_by_food']
+df1 = df1[column_order]
+df2 = pd.DataFrame(service_list).transpose()
+df2.columns = ['Service_Score']
+df2['rid'] = df2.index
+df2['rank_by_service'] = df2['Service_Score'].rank(ascending=False)
+
+df_final=df1.merge(df2,left_on='rid',right_on='rid',how='outer')
+```
