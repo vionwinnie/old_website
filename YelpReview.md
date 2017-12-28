@@ -121,73 +121,42 @@ def shrinkage_plot(means, thetas, theta_vars, counts):
     return plt.gca()
 ```
 ## Model setup
+We know that $$ Posterior \sim Likelihood x Prior $$
+But what is posterior, likelihood and prior in this case?
 
-Thus there are $J=8$ schools, and in the $jth$ school, there are $n_j$ students. We are not given the scores of individual students, just the average score in the school: the so-called "sample-mean" (after all this is a sample of students from the school).
+We know that there are $Q=1000$ restaurants, and in the $qth$ restaurant, there are $n_q$ reviews. What we know about each review is mean probability of a sentence being positive. We don't know $ p( being positive | sentence)$, but the mean of all the sentences in that review. 
 
-We label the sample mean of each group $j$ as
+For each $qth$ restaurant, the sample mean of each group $q$ is  $$\bar{y_q} = \frac{1}{n_q} \sum_{i=1}^{n_q} y_{iq}$$
+With sampling variance: $$\sigma_q^2 = \sigma^2/n_q$$
 
-$$\bar{y_j} = \frac{1}{n_j} \sum_{i=1}^{n_j} y_{ij}$$
+Likelihood of each $\theta_q$, $\bar{y}_q$ is $$\bar{y_q} \vert \theta_q \sim N(\theta_q,\sigma_q^2).$$
 
-with sampling variance:
+If we choose the prior to be: 
+$$ \theta_j \sim N(\mu, \tau^2) $$
 
-$$\sigma_j^2 = \sigma^2/n_j$$
+Multiplying likelihood and prior together will give us the posterior distribution, after simplication then we will see that The _posterior mean_ is a weighted average of the prior mean and the observed average. 
 
-  
->We can then write the likelihood for each $\theta_j$ using the sufficient statistics, $\bar{y}_j$:
+Our non-centered hierarchical model will look like the following:
+We estimate $\theta_{j}$ from a Normal hyper-prior distribution with parameters of $\nu $ and $\tau $. With the $\mu$ and $\tau$ drawn, we can then compute $\theta_{j}$. After that, we can then estimate the mean, $\bar{y_{j}}$ with the $\sigma_{j}}$ given in our data.
+The deterministic setup between $\theta$, $\mu$, and $\tau$ reduces the correlation of actively sampled variables, mitigating curvature and steepness.
 
-$$\bar{y_j} \vert \theta_j \sim N(\theta_j,\sigma_j^2).$$
-
-Since we are assuming the variance $\sigma^2$ is known from all the schools we have $$\sigma_j^2 = \sigma^2/n_j$$ to be the standard error of the sample-mean.
-
-The idea is that if a particular school is very likely to have systematically positive treatment effect, we should be able to estimate that $\theta_j$ is relatively large and $\sigma_j^2$ is relatively small. If on the other hand, a school giving both positive and negative treatments we'll estimate $\theta_j$ around 0 and a relatively large variance $\sigma_j^2$.
-
-This is
-
->a notation that will prove useful later because of the flexibility in allowing a separate variance $\sigma_j^2$ for the mean of each group $j$. ...all expressions will be implicitly conditional on the known values $\sigma_j^2$.... Although rarely strictly true, the assumption of known variances at the sampling level of the model is often an adequate approximation.
-
->The treatment of the model provided ... is also appropriate for situations in which the variances differ for reasons other than the number of data points in the experiment. In fact, the likelihood  can appear in much more general contexts than that stated here. For example, if the group sizes $n_j$ are large enough, then the means $\bar{y_j}$ are approximately normally distributed, given $\theta_j$, even when the data $y_{ij}$ are not. 
-
-In other problems, like the one on your homework where we will use this model, you are given a $\sigma_2$ calculated from each group or unit. But since you will want  the variance of the sample mean, you will have to calculate the standard error by dividing out by the count in that unit.
-
-![](images/restuarant_model.png)
-
-Let us choose a prior:
-
+Hyperpriors:
 $$
-\theta_j \sim N(\mu, \tau^2)
+\mu \sim \mathcal{N}(0, 5)\\
+\tau \sim \text{Half-Cauchy}(0, 5)\\
 $$
 
-$\theta_j$ is the parameter we were estimating by the review-topic mean earlier.
-
-The second of the formulae above will allow us to share information between reviews within each restaurant.
-
-After doing some math, we can calculate the posterior distribution:
-
+Prior:
 $$
-p(\theta_j\, \vert \,\bar{y}_{j})\propto p(\bar{y}_{j}\, \vert \,\theta_j) p(\theta_j)
-\propto \exp\left(-\frac{1}{2 \sigma_j^2} \left(\bar{y}_{j}-\theta_j\right)^2\right)  \exp\left(-\frac{1}{2 \tau^2} \left(\theta_j-\mu\right)^2\right)
+\nu_{j} \sim \mathcal{N}(0, 1)\\
+\theta_{j} = \mu + \tau\nu_j \\
 $$
 
-After some amount of algebra you'll find that this is the kernel of a normal distribution with mean 
-
-$\frac{1}{\sigma^2_{\text{post}}}\left(\frac{\mu}{\tau^2} + \frac{\bar{y}_{j}}{\sigma^2_{j}}\right)$ 
-
-and variance 
-
-$ \sigma^2_{\text{post}} = \left(\frac{1}{\tau^2} + \frac{1}{\sigma^2_{j}}\right)^{-1}$. 
-
-We can simplify the mean further to see a familiar form:
-
+Likelihood:
 $$
-\mathbb{E}[\theta_j\, \vert \,\bar y_j, \mu, \sigma_j^2, \tau^2] = \frac{\sigma_j^2}{\sigma_j^2 + \tau^2} \mu + \frac{\tau^2}{\sigma_j^2 + \tau^2}\bar{y}_{j}.
+\bar{y_{j}} \sim \mathcal{N}(\theta_{j}, \sigma_{j})
 $$
 
-The _posterior mean_ is a weighted average of the prior mean and the observed average. 
-
-
-
-### Set up the hierarchical model for food ratings:
-A Hierarchical model with non-centered parametrization. Theta of a reviewer is drawn from a Normal hyper-prior distribution with parameters μμ and ττ. Once we get a θjθj then can draw the means from it given the data σjσj and one such draw corresponds to our data.
 
 ```python
 dict_trace_food = {}
