@@ -226,16 +226,16 @@ for i,rest in enumerate(restaurants):
 
 For resturant rid= JhupPnWfNlMJivnWB5druA:
 Food Rating Model:
-![Alt Text](/assets/rest1.PNG)
+![Alt Text](/assets/rest1.png)
 Service Rating Model:
-![Alt Text](/assets/service1.PNG)
+![Alt Text](/assets/service1.png)
 
 
 For resturant rid= muqFM9Hoamh_fGL4MPeZqg:
 Food Rating Model:
-![Alt Text](/assets/rest2.PNG)
+![Alt Text](/assets/rest2.png)
 Service Rating Model:
-![Alt Text](/assets/service2.PNG)
+![Alt Text](/assets/service2.png)
  
 
 Our resampling looks smooth on the traceplots for both restaurants. 
@@ -263,7 +263,7 @@ for i,p in enumerate(selected_rid):
     shrinkage_plot(mean_est,theta_est,theta_var,counts)
     plt.title(('rest_',i,len(theta_est),'review of Food'))
 ```
-![Alt Text](/assets/pool.PNG)
+![Alt Text](/assets/pooling.png)
  
  For shrinkage plots for service ratings:
 ```python
@@ -287,7 +287,7 @@ for i,p in enumerate(selected_rid):
     shrinkage_plot(mean_est,theta_est,theta_var,counts)
     plt.title(('rest_',i,len(theta_est),'review of Service'))
 ```
-![Alt Text](/assets/pool1.PNG)
+![Alt Text](/assets/pooling1.png)
 
 We can see that for each restaurant, the hierarchical model we set up pass information from one review to another. The raw mean for each review can be dispersed widely. But after the modeling, the resampled estimation of the same parameter is drawn towards the middle due to the pooling effects.
 
