@@ -14,7 +14,7 @@ Bayesian Statistics, Monte Carlo Markov Chain, Gibbs Sampling
 
 ### Dataset Description & Problem Statement:
 
-I have received this dataset from AM207. The data is collected from online Yelp reviews for a number of restaurants in San Francisco. The goal of the project is to build a model to estimate the mean rating for any given restaurant in the sample set.. The intricacy of the problem is multi-fold: firstly, the distribution of samples in each restaurant is quite uneven, simply taking the average of stars of all reviews would skew the result for restaurants with very few reviews. Secondly, different users have bias or unique user behavior. One user might give 5 stars for most restaurants while the other one is an average 3 star and a 5-star is only reserved for the truly outstanding one? We need a sophistical Bayesian statistical model to normalize these bahaviors using certain features (so-called pooling) before we can further analyze the problem.  
+I have received this dataset from AM207. The data is collected from online Yelp reviews for a number of restaurants in San Francisco. The goal of the project is to build a model to estimate the mean rating for any given restaurant in the sample set. The intricacy of the problem is multi-fold: firstly, the distribution of samples in each restaurant is quite uneven, simply taking the average of stars of all reviews would skew the result for restaurants with very few reviews. Secondly, different users have bias or unique user behavior. One user might give 5 stars for most restaurants while the other one is an average 3 star and a 5-star is only reserved for the truly outstanding one? We can use a Bayesian statistical model to arrive at a better estimation of the 'mean rating' of any restaurants.  
 
 This is how the raw data looks like:
 
@@ -119,13 +119,16 @@ def shrinkage_plot(means, thetas, theta_vars, counts):
 We know that $ Posterior \sim Likelihood \cdot Prior $
 But what is posterior, likelihood and prior in this case?
 
-We know that there are $Q=1000$ restaurants, and in the $qth$ restaurant, there are $n_q$ reviews. 
-What we know about each review is mean probability of a sentence being positive. 
-We don't know $ p( being positive | sentence)$, but the mean of all the sentences in that review. 
+We know that there are $J$ restaurants, and in the $jth$ restaurant, there are $n_j$ reviews. 
+What we know about each review is mean probability of a sentence being positive. To put it in simpler terms: We don't know $ p( being positive | each sentence)$, but the mean of all the sentences in that review. 
 
-For each $qth$ restaurant, the sample mean of each group $q$ is  $\bar{y_q} = \frac{1}{n_q} \sum_{i=1}^{n_q} y_{iq}$
-With sampling variance: $\sigma_q^2 = \sigma^2/n_q$
-Likelihood of each $\theta_q$, $\bar{y}_q$ is $$\bar{y_q} \vert \theta_q \sim N(\theta_q,\sigma_q^2).$$
+$y_{ij}$ is the probability of positive sentence in comment $y_i$
+$\bar{y}_j$ is the average of all sentences in a review j
+$\theta_j $ is the probability of positive opinion of a restaurant by reviewer j
+
+For each $jth$ restaurant, the sample mean of all sentences in a review $n_j$ is  $\bar{y_j} = \frac{1}{n_j} \sum_{i=1}^{n_j} y_{ij}$
+With sampling variance: $\sigma_j^2 = \sigma^2/n_j$
+Likelihood of each $\theta_j$, $\bar{y}_j$ is $$\bar{y_j} \vert \theta_j \sim N(\theta_j,\sigma_j^2).$$
 
 If we choose the prior to be: 
 $$ \theta_j \sim N(\mu, \tau^2) $$
@@ -133,8 +136,9 @@ $$ \theta_j \sim N(\mu, \tau^2) $$
 Multiplying likelihood and prior together will give us the posterior distribution, after simplication then we will see that The _posterior mean_ is a weighted average of the prior mean and the observed average. 
 
 Our non-centered hierarchical model will look like the following:
+
 We estimate $\theta_{j}$ from a Normal hyper-prior distribution with parameters of $\nu $ and $\tau $. With the $\mu$ and $\tau$ drawn, we can then compute $\theta_{j}$. After that, we can then estimate the mean, $\bar{y_{j}}$ with the $\sigma_{j}$ given in our data.
-The deterministic setup between $\theta$, $\mu$, and $\tau$ reduces the correlation of actively sampled variables, mitigating curvature and steepness.
+The deterministic setup between $\theta$, $\mu$, and $\tau$ lowers the correlation of actively sampled variables, reducing curvature and steepness.
 
 Hyperpriors:
 
@@ -292,7 +296,7 @@ for i,p in enumerate(selected_rid):
 We can see that for each restaurant, the hierarchical model we set up pass information from one review to another. The raw mean for each review can be dispersed widely. But after the modeling, the resampled estimation of the same parameter is drawn towards the middle due to the pooling effects.
 
 ## Prototype Ranking Order:
-With the resampling for both food and service ratings, we can now estimate with more comfort for each aspect of a restaurants. What happens next is that we extract the score for both food and service and combine into one rating. 
+With the resampling for both food and service ratings completed, we can now estimate with more comfort for each aspect of a restaurant. What happens next is that we extract the score for both food and service and combine into one rating. 
 
 ```python
 food_score = {}
@@ -332,13 +336,15 @@ This is how the final ranking looks like:
 
 |rid|food score|service score|overall_score|overall ranking|
 |ABrSt3fsirLrUYNVrD3fbQ|0.758|0.682|0.720|1|
-||0.708|NaN|0.708|2|
-||0.628|0.758|0.693|3|
-||0.669|0.699|0.684|4|
-||0.645|NaN|0.645|5|
-||0.591|0.668|0.629|6|
-||0.618|0.624|0.621|7|
-||0.675|0.553|0.614|8|
-||0.536|0.549|0.543|9|
-||0.525|0.288|0.406|10|
+|iEJci7SgW1MXsAPN2G6TQ|0.708|NaN|0.708|2|
+|zZXLeL6fXP7LlhJ73c20Q|0.628|0.758|0.693|3|
+|XCYGe_JPjexm6G2OQ_mYXQ|0.669|0.699|0.684|4|
+|vP61sXEXF4SssXR5zIhrGA|0.645|NaN|0.645|5|
+|sCnl_iuoOmxm5H9NFfclrg|0.591|0.668|0.629|6|
+|ASymmzRviIlU8mrIhFOg9g|0.618|0.624|0.621|7|
+|JhupPnWfNlMJivnWB5druA|0.675|0.553|0.614|8|
+|muqFM9Hoamh_fGL4MPeZqg|0.536|0.549|0.543|9|
+|Af2qmVsMCzpKEg4DxsCm2g|0.525|0.288|0.406|10|
 
+## Further Applications:
+To recap, I have used MCMC to resample the mean ratings of reviews and pooling the reviews together to give better estimation of the mean rating of any given restaurants. We can further develop the model for pooling for all the restaurants. We can also use different weighting between food and service components for individuals as a personalized recommendation engines.
