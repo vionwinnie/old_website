@@ -6,9 +6,22 @@ noline: 1
 
 ## Introduction
 
-Hi every one, this is where I showcase my data science projects. I have started learning concepts related to Data Science, Statistics, and Computer Science about 1.5 years ago. It's been a fascinating journey so far. I realize that I learn best by putting theories into real-life cases and hence this website. Feel free to email me if you have any suggestions and questions. 
+Hi every one, this is where I showcase my data science projects. I have started learning concepts related to Data Science, Statistics, and Computer Science about 1.5 years ago. It's been a fascinating journey so far. I realize that I learn best by putting theories into real-life cases and hence this website. Feel free to email me if you have any suggestions and questions ![dcvionwinnie@gmail.com]
+
+### Personal History
+
+I grew up from Hong Kong, attended United World College in Hong Kong and then studied at Middlebury College in Vermont, USA on full scholarship. I majored in Middle Eastern history and minor in Mathematics and Arabic. I even studied abroad in Jordan for an entire year! After undergrad, I work at Fidelity Investments in Boston and then in Hong Kong.
+
+I see connections of my undergrad study with data science: historical inquiry requires you to step into the shoes of historical figures, understand the cause and origins of historical phenomena, to collect and interpret hisotical sources. These skills are similar to the critical thinking skills one requires in Data Science, for example, meaningful feature engineering or bagging to obtain a more unbiased parameter estimation. Ultimately, both discipline seek to interpret and explain phenomena and human behavior. Additionally, Data Science has a prediction dimension to it, focusing on forecasting the future with the current data.
+
+In my free time, I enjoy playing table tennis, reading, photography, and traveling. 
+
+
+![photo holder](/assets/IMG_4071.JPG)
+![photo holder](/assets/IMG_1562.JPG)
+
 
 ## Acknowledgement
 
-My webpage is modeled after AM207 github design for its clean design. This is my first Jeykll blog design. I will work on modifying it to something that I can display my nature photography.
+My webpage is modeled after AM207 github design for its clean design. This is my first Jeykll blog design. I will work on modifying the design that emphasizes readiability and elegance.
 
