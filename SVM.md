@@ -25,8 +25,16 @@ For more complicated separation like this,
 
 ![Alt Text](/assets/SVM/plots_2.png)
 
-we can also take the error of misclassification data points into consideration. The next thing we need to decide is whether maximizing the margin is more important or reducing the error of misclassification is more important. This is called the trade-off between margin and misclassification error.
-Mathematically, the tradeoff is represented by $\lambda$ in the equation: The lower the lambda is, the more important it is to get the individual points correct. Geometrically, the lambda would change the width of the margin.
+we can also take the error of misclassification data points into consideration. 
+
+Total Error Equation:
+$$ \lambda min \left\{0,1-(a_0+ \sum_{i=1}^{n} (a_i)^2) y_j\right\} + min sum_{i=1}^{n} \|a_i^2\|$$
+
+As we can see in the total error equation, the error is divided into two parts - 1) minimizing penality for misclassifying individual points and 2) maxmizing margin distance. It is upon us to decide how to strike a balance between the two. This is called the **trade-off** between margin and misclassification error. Mathematically, the tradeoff is represented by $\lambda$ in the equation: The lower the lambda is, the more important it is to get the individual points correct. Geometrically, the $\lambda$ would change the width of the margin.
+
+## How to give weighted cost of misclassification
+
+
 
 ## Kernel Trick
 
