@@ -28,14 +28,31 @@ For more complicated separation like this,
 we can also take the error of misclassification data points into consideration. 
 
 Total Error Equation:
-$$ \lambda min \left\{0,1-(a_0+ \sum_{i=1}^{n} (a_i)^2) y_j\right\} + min sum_{i=1}^{n} \|a_i^2\|$$
+$$ minimize  \sum_{j=1}^{n} \max \left\{0,1-(a_0+ \sum_{i=1}^{n} (a_i)^2) y_j\right\} + min \cdot \lambda \left\( sum_{i=1}^{n} \|a_i^2\| \right\)$$
 
-As we can see in the total error equation, the error is divided into two parts - 1) minimizing penality for misclassifying individual points and 2) maxmizing margin distance. It is upon us to decide how to strike a balance between the two. This is called the **trade-off** between margin and misclassification error. Mathematically, the tradeoff is represented by $\lambda$ in the equation: The lower the lambda is, the more important it is to get the individual points correct. Geometrically, the $\lambda$ would change the width of the margin.
+As we can see in the total error equation, the error is divided into two parts: 1) minimizing penalty for misclassifying individual points and 2) maxmizing margin distance. It is upon us to decide how to strike a balance between the two. This is called the **trade-off** between margin and misclassification error. Mathematically, the tradeoff is represented by $\lambda$ in the equation: The lower the lambda is, the more important it is to get the individual points correct. Geometrically, the $\lambda$ would change the width of the margin.
 
 ## How to give weighted cost of misclassification
 
+Suppose in the example of diagnosing cancer, a False-negative (Telling the patient he/she has no cancer while he/she actually has) has a much higher penalty than a False-positive ((Telling the patient he/she has cancer while he/she actually does not have), how can we express that in the model? 
+
+We can reformulate the penalty for misclassification ( i.e. the first component) in the total error equation. 
+$$ minimize  \sum_{j=1}^{n}  \textcolor{red}{m_j} \max \left\{0,1-(a_0+ \sum_{i=1}^{n} (a_i)^2) y_j\right\} + min \cdot \lambda \left\( sum_{i=1}^{n} \|a_i^2\| \right\)$$
+
+$$ \left\{ 
+\begin{array}{c}
+m_j > 5 \\ 
+m_j < 0.5 \\ 
+\end{array}
+\right. 
+$$
+
+$ m_j $ is the penalty cost. For False-negative, we set it to 5 (for example) aand less than 0.5 for false-positive to discount for the difference in penalty. 
+
+## Python Implementation 
 
 
 ## Kernel Trick
 
-## Python Implementation 
+## Scaling and standardization 
+
