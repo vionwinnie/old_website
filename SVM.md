@@ -32,6 +32,9 @@ $$ minimize  \sum_{j=1}^{n} \max \left\{0,1-(a_0+ \sum_{i=1}^{n} (a_i)^2) y_j\ri
 
 As we can see in the total error equation, the error is divided into two parts: 1) minimizing penalty for misclassifying individual points and 2) maxmizing margin distance. It is upon us to decide how to strike a balance between the two. This is called the **trade-off** between margin and misclassification error. Mathematically, the tradeoff is represented by $\lambda$ in the equation: The lower the lambda is, the more important it is to get the individual points correct. Geometrically, the $\lambda$ would change the width of the margin.
 
+The margins are narrowed when you increase the penalty coefficient as shown in the plot below:
+![Alt Text](/assets/SVM/plots_3.png)
+
 ## How to give weighted cost of misclassification
 
 Suppose in the example of diagnosing cancer, a False-negative (Telling the patient he/she has no cancer while he/she actually has) has a much higher penalty than a False-positive ((Telling the patient he/she has cancer while he/she actually does not have), how can we express that in the model? 
@@ -47,12 +50,17 @@ m_j < 0.5 \\
 \right. 
 $$
 
-$ m_j $ is the penalty cost. For False-negative, we set it to 5 (for example) aand less than 0.5 for false-positive to discount for the difference in penalty. 
+$ m_j $ is the penalty cost. For False-negative, we set it to 1000 (for example) and 1 for false-positive to discount for the difference in penalty. Such setup would refine the boundary for better distinction for false-negatives.
+
+![Alt Text](/assets/SVM/plots_4.png)
+
+## Kernel Trick
+What if the data doesn't look linearly separable?
+![Alt Text](/assets/SVM/plots_5.png)
+
+
+## Scaling and standardization 
 
 ## Python Implementation 
 
-
-## Kernel Trick
-
-## Scaling and standardization 
 
