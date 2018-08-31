@@ -58,9 +58,65 @@ $ m_j $ is the penalty cost. For False-negative, we set it to 1000 (for example)
 What if the data doesn't look linearly separable?
 ![Alt Text](/assets/SVM/plots_5.png)
 
+We could recompute (x,y) into $ (x,y, x^2 + y^2) $ to map the 2-dimensional data into 3-dimensional space and from there it would be easier to draw the separation boundary. After we project the boundary back to 2-D space, the boundary might not be linear anymore. There are multiple kernels that does this projection into higher dimension: tanh, rbf, and so on. 
 
 ## Scaling and standardization 
+SVM is very sensitive to range of numbers. If one variable ranges from [0,1] and the other variable ranges [-1000000,10000000], the separation boundary can be sensitive to the variable with larger range than the smaller range. To remove this effect, we can apply scaling or standardization to remove such effect.  
 
-## Python Implementation 
+## A simple Python implementation 
+I have taken this dataset from https://www.kaggle.com/mlg-ulb/creditcardfraud/home
+On the documentation it says that features are preprocessed using PCA except Time and Amount 
 
+```
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
+## Reading in the data 
+data_path = r"C:\Users\USER\Documents\Fall2018\ISYE6501\blogposts\SVM\creditcard.csv"
+df = pd.read_csv(data_path,nrows=10000)
+
+X = df[['V1','V2']]
+y = df[['Class']]
+del df
+
+## Train-test split 
+from sklearn.model_selection import train_test_split
+train_X, val_X, train_y, val_y = train_test_split(X, y,
+                                                  random_state = 0,
+                                                  train_size=0.6,
+                                                  test_size=0.4)
+
+unique, counts = np.unique(val_y, return_counts=True)
+print('Distribution of labels:')
+print(dict(zip(unique,counts)))
+
+## Since this is an imbalanced dataset, I have used a class weight to put more emphasis to classify getting the 1's right as more important
+
+class_weight = {0: 1,
+                1: 100}
+
+plt.scatter(train_X['V1'], train_X['V2'], c=train_y.values.ravel())
+plt.title('Non-linear distribution')
+
+## Implementing SVM using different kernel (linear, rbf, polynomial)
+from sklearn import svm
+C = 1.0  # SVM regularization parameter
+models = (svm.SVC(kernel='linear', C=C,class_weight=class_weight),
+          svm.SVC(kernel='rbf', gamma=0.6, C=C,class_weight=class_weight),
+          svm.SVC(kernel='poly', degree=4, C=C,class_weight=class_weight))
+models = (clf.fit(train_X, train_y) for clf in models)
+
+# Title for the plots
+titles = ('SVC with linear kernel',
+          'SVC with RBF kernel',
+          'SVC with polynomial (degree 4) kernel')
+
+from sklearn.metrics import confusion_matrix
+
+## Visualize the result 
+for model,title in zip(models,titles):    
+    y_pred = model.predict(val_X)
+    print(title)
+    print(confusion_matrix(val_y, y_pred))
+```
