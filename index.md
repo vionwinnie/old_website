@@ -16,7 +16,7 @@ I see connections of my prior study in humanities with data science: historical 
 
 In my free time, I enjoy playing table tennis, reading, photography, and traveling. 
 
-![photo holder](/assets/CosimoMariaMasini.jpg)
+![photo holder](/assets/CosimoMarisMasini.jpg)
 2018 Summer: Biodynamic vineyatd Cosimo Maria Masini in Tuscany, Italy
 ![photo holder](/assets/Swiss_Castle.jpg)
 2018 Summer: Chillon Castle in Montreux, Switzerland
