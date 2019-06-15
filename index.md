@@ -6,7 +6,7 @@ noline: 1
 
 ## Introduction
 
-Hi every one, this is where I showcase my data science projects. I became fascinated with Data Science on the job and decided to study a master degree in analytics at Georgia Tech. During the past year, I have been honing my skills on core ML modeling and diagnostics, Computer Vision (CV), and Natural Language Processing (NLP) models, implemented with both baseline techniques and Deep Learning algorithms. It's been a fascinating journey so far. I realize that I learn best by putting theories into real-life cases and hence this website. Feel free to email me if you have any suggestions and questions ![dcvionwinnie@gmail.com]
+Hi every one, this is where I showcase my data science projects. I became fascinated with Data Science on the job and decided to study a master degree in analytics at Georgia Tech. During the past year, I have been honing my skills on data visualization, core ML modeling and diagnostics, Computer Vision (CV), and Natural Language Processing (NLP) models, implemented with both baseline techniques and Deep Learning algorithms. I realize that I learn best by putting theories into real-life cases and hence this website. Feel free to email me if you have any suggestions and questions ![dcvionwinnie@gmail.com]
 
 ### Personal History
 
